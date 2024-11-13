@@ -1,3 +1,5 @@
+package modelo;
+
 public abstract class MisionSecundaria {
     protected Ubicacion ubicacion;
     protected int recompensa;
