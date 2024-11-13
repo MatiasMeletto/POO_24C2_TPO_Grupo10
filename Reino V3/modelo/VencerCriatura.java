@@ -9,11 +9,16 @@ public class VencerCriatura extends MisionSecundaria {
         this.criaturasObjetivo = criaturasObjetivo;
     }
 
-    public boolean verificarCompletada() {
-        return ubicacion.getCriaturas().containsAll(criaturasObjetivo) && criaturasObjetivo.isEmpty();
-    }
+    //public boolean verificarCompletada() {
+      //  return ubicacion.getCriaturas().containsAll(criaturasObjetivo) && criaturasObjetivo.isEmpty();
+    //}
 
     public void criaturaDerrotada(Criatura criatura) {
         criaturasObjetivo.remove(criatura);
+    }
+
+    @Override
+    public boolean verificarCompletada() {
+        return false;
     }
 }

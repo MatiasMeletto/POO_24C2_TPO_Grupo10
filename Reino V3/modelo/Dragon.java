@@ -3,14 +3,21 @@ package modelo;
 public class Dragon extends Criatura {
 
     public Dragon() {
-        super("Dragon", 150, 25, 20, 100);  // Valores iniciales de vida, ataque, defensa y recompensa de experiencia
+        super(150, 25, 20, 100);  // Valores iniciales de vida, ataque, defensa y recompensa de experiencia
     }
 
     @Override
-    public void habilidadEspecial(Personaje personaje) {
-        // Incrementa el nivel de ataque en un 30% cuando lucha contra un Guerrero
-        if (personaje instanceof Guerrero) {
-            this.nivelAtaque *= 1.3;
+    public void recibirDanio(int danio, Personaje p) {
+        puntosVida = (puntosVida - (danio - nivelDefensa));
+    }
+
+    @Override
+    public int hacerDanio(Personaje p) {
+        if (!(p instanceof Guerrero)) {
+            return nivelAtaque;
+        }
+        else {
+            return (int)(nivelAtaque *1.30);
         }
     }
 }

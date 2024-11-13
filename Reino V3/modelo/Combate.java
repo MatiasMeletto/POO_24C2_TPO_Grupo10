@@ -14,7 +14,7 @@ public class Combate {
     public String iniciarCombate() {
         StringBuilder resultado = new StringBuilder();
 
-        while (heroe.getPuntosVida() > 0 && criatura.getPuntosVida() > 0) {
+        while (heroe.sigueVivo() && criatura.sigueVivo()) {
             if (turnoHeroe) {
                 resultado.append(ataqueHeroe()).append("\n");
             } else {
@@ -24,25 +24,25 @@ public class Combate {
         }
 
         // Determinar el resultado del combate
-        if (heroe.getPuntosVida() > 0) {
-            resultado.append(heroe.getNombre()).append(" ha vencido a ").append(criatura.getNombre()).append("!\n");
+        if (heroe.sigueVivo()) {
+            resultado.append(heroe.getNombre()).append(" ha vencido a ").append(criatura.getClass().getSimpleName()).append("!\n");
             heroe.ganarExperiencia(criatura.getExperienciaOtorgada());
         } else {
-            resultado.append(heroe.getNombre()).append(" ha sido derrotado por ").append(criatura.getNombre()).append(".\n");
+            resultado.append(heroe.getNombre()).append(" ha sido derrotado por ").append(criatura.getClass().getSimpleName()).append(".\n");
         }
         return resultado.toString();
     }
 
     private String ataqueHeroe() {
-        int danio = Math.max(0, heroe.getNivelAtaque() - criatura.getNivelDefensa());
-        criatura.recibirDanio(danio);
-        return heroe.getNombre() + " ataca a " + criatura.getNombre() + " causando " + danio + " puntos de daño.";
+        int danio = heroe.hacerDanio(criatura);
+        criatura.recibirDanio(danio, heroe);
+        return heroe.getNombre() + " ataca a " + criatura.getClass().getSimpleName() + " causando " + danio + " puntos de daño.";
     }
 
     private String ataqueCriatura() {
-        int danio = Math.max(0, criatura.getNivelAtaque() - heroe.getNivelDefensa());
-        heroe.recibirDanio(danio);
-        return criatura.getNombre() + " ataca a " + heroe.getNombre() + " causando " + danio + " puntos de daño.";
+        int danio = criatura.hacerDanio(heroe);
+        heroe.recibirDanio(danio,criatura);
+        return criatura.getClass().getSimpleName() + " ataca a " + heroe.getNombre() + " causando " + danio + " puntos de daño.";
     }
 }
 

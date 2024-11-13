@@ -43,10 +43,6 @@ public class VistaEstadoPersonaje extends JFrame {
 
         // Crear y configurar etiquetas de estado
         labelNombre = new JLabel("Nombre: " + personaje.getNombre(), JLabel.CENTER);
-        labelVida = new JLabel("Vida: " + personaje.getPuntosVida(), JLabel.CENTER);
-        labelAtaque = new JLabel("Ataque: " + personaje.getNivelAtaque(), JLabel.CENTER);
-        labelDefensa = new JLabel("Defensa: " + personaje.getNivelDefensa(), JLabel.CENTER);
-        labelExperiencia = new JLabel("Experiencia: " + personaje.getExperiencia(), JLabel.CENTER);
 
         // Añadir las etiquetas al panel
         panel.add(labelNombre);
@@ -61,10 +57,6 @@ public class VistaEstadoPersonaje extends JFrame {
     // Método para actualizar los datos del personaje si fuera necesario
     public void mostrarEstado(Personaje personaje) {
         labelNombre.setText("Nombre: " + personaje.getNombre());
-        labelVida.setText("Vida: " + personaje.getPuntosVida());
-        labelAtaque.setText("Ataque: " + personaje.getNivelAtaque());
-        labelDefensa.setText("Defensa: " + personaje.getNivelDefensa());
-        labelExperiencia.setText("Experiencia: " + personaje.getExperiencia());
 
         setVisible(true);
     }

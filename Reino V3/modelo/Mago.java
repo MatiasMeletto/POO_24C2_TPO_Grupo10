@@ -3,12 +3,19 @@ package modelo;
 public class Mago extends Personaje {
 
     public Mago(String nombre) {
-        super(nombre, 100, 15, 10);  // Valores de vida, ataque y defensa iniciales para Mago
+        super(nombre, 100, 15, 10,3);  // Valores de vida, ataque y defensa iniciales para Mago
     }
 
     @Override
-    public void habilidadEspecial() {
-        // Inmune contra espectros, se define en el contexto de combate
+    public void recibirDanio(int danio, Criatura c) {
+        if (!(c instanceof Espectro)){
+            puntosVida -= (danio - nivelDefensa);
+        }
+    }
+
+    @Override
+    public int hacerDanio(Criatura c) {
+        return nivelAtaque;
     }
 
     @Override
