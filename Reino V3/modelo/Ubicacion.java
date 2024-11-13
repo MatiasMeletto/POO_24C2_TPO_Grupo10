@@ -5,8 +5,7 @@ import java.util.List;
 
 public class Ubicacion {
     private String nombre;
-    private boolean tieneCriatura;
-    private Criatura criatura;
+    private List<Criatura> criaturas;
     private boolean esNeutral;
     private List<Ubicacion> caminosPosibles;
 
@@ -14,7 +13,19 @@ public class Ubicacion {
         this.nombre = nombre;
         this.esNeutral = esNeutral;
         this.caminosPosibles = new ArrayList<>();
-        this.tieneCriatura = false;
+        this.criaturas  = new ArrayList<>();
+        if (!this.esNeutral) {
+            for (int i = 0; i < 3; i++) {
+                if (Math.random() < 0.25) {
+                    Criatura c = new Dragon();
+                    this.criaturas.add(c);
+                }
+            }
+        }
+        if (this.criaturas.isEmpty())
+        {
+            this.esNeutral = true;
+        }
     }
 
     public void agregarCamino(Ubicacion ubicacion) {
@@ -27,19 +38,6 @@ public class Ubicacion {
 
     public String getNombre() {
         return nombre;
-    }
-
-    public boolean tieneCriatura() {
-        return tieneCriatura;
-    }
-
-    public Criatura getCriatura() {
-        return criatura;
-    }
-
-    public void setCriatura(Criatura criatura) {
-        this.criatura = criatura;
-        this.tieneCriatura = true;
     }
 
     public boolean esNeutral() {

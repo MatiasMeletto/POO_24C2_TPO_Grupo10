@@ -40,16 +40,7 @@ public class Mapa {
         Ubicacion colinaBrumosa = new Ubicacion("Colina Brumosa", false);
         Ubicacion desiertoSombrio = new Ubicacion("Desierto Sombrío", false);
         Ubicacion cascadaSilenciosa = new Ubicacion("Cascada Silenciosa", false);
-        Ubicacion torreEspectral = new Ubicacion("Torre Espectral", true);      
-
-        // Asignar criaturas a algunas ubicaciones enemigas
-        bosqueEncantado.setCriatura(new Espectro());
-        cavernaOscura.setCriatura(new Troll());
-        montanaHelada.setCriatura(new Dragon());
-        pantanoNiebla.setCriatura(new Espectro());
-        torreVigilancia.setCriatura(new Troll());
-        altarOscuro.setCriatura(new Espectro());
-        cuevaTesoros.setCriatura(new Dragon());  // Lugar final del tesoro
+        Ubicacion torreEspectral = new Ubicacion("Torre Espectral", true);
 
         // Configurar caminos y bifurcaciones correctamente
         entradaReino.agregarCamino(caminoBosque);       //Lineal
