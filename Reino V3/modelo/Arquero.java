@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.Random;
-
 public class Arquero extends Personaje {
     private int punteria;
     private int agilidad;

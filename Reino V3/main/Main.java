@@ -2,7 +2,7 @@ package main;
 
 import controlador.ControladorJuego;
 import vista.IngresoNombre;
-
+//Main
 public class Main {
     public static void main(String[] args) {
         // Inicializar el controlador del juego
