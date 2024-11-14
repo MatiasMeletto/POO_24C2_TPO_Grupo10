@@ -8,7 +8,7 @@ public class ControladorJuego {
     private Mapa mapa;
 
     public ControladorJuego() {
-        mapa = new Mapa();  // Inicializar el mapa al crear el controlador
+        // El mapa se inicializa después de seleccionar el personaje
     }
 
     // Método para crear el personaje basado en la clase seleccionada
@@ -26,6 +26,9 @@ public class ControladorJuego {
             default:
                 throw new IllegalArgumentException("Clase de personaje no válida: " + claseSeleccionada);
         }
+
+        // Inicializar el mapa con el personaje seleccionado
+        mapa = new Mapa(personaje);
 
         // Iniciar el mapa directamente después de seleccionar el personaje
         iniciarMapa();

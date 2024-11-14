@@ -1,6 +1,5 @@
 package vista;
 
-import controlador.ControladorJuego;
 import modelo.Combate;
 import modelo.Criatura;
 import modelo.Personaje;
@@ -12,15 +11,13 @@ public class VistaCombate extends JFrame {
 
     private JTextArea areaCombate;
 
-    public VistaCombate(ControladorJuego controlador, Personaje heroe, Criatura criatura) {
-        // Configuración de la ventana
+    public VistaCombate(Personaje heroe, Criatura criatura) {
         setTitle("Combate");
-        setSize(500, 400);
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Área de texto para mostrar el combate
         areaCombate = new JTextArea();
         areaCombate.setEditable(false);
         areaCombate.setFont(new Font("Monospaced", Font.PLAIN, 14));
@@ -29,25 +26,20 @@ public class VistaCombate extends JFrame {
         JScrollPane scrollPane = new JScrollPane(areaCombate);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Ejecutar el combate y mostrar el resultado
-        mostrarCombate(controlador, heroe, criatura);
+        iniciarCombate(heroe, criatura);
     }
 
-    private void mostrarCombate(ControladorJuego controlador, Personaje heroe, Criatura criatura) {
+    private void iniciarCombate(Personaje heroe, Criatura criatura) {
         Combate combate = new Combate(heroe, criatura);
-        StringBuilder resultadoCombate = new StringBuilder("¡Comienza el combate!\n");
+        String resultadoCombate = combate.iniciarCombate();
+        areaCombate.setText(resultadoCombate);
+    }
 
-        // Ejecutar el combate completo y registrar los eventos
-        while (!combate.estaTerminado()) {
-            resultadoCombate.append(combate.ejecutarTurno());
-            resultadoCombate.append("\n");
-        }
-
-        // Mostrar el resultado final del combate
-        resultadoCombate.append(combate.getResultadoFinal());
-        
-        // Mostrar el resultado del combate en el área de texto
-        areaCombate.setText(resultadoCombate.toString());
+    public static void mostrar(Personaje heroe, Criatura criatura) {
+        SwingUtilities.invokeLater(() -> new VistaCombate(heroe, criatura).setVisible(true));
     }
 }
+
+
+
 

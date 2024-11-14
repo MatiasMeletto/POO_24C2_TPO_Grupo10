@@ -3,14 +3,18 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import vista.VistaCombate;
+
 public class Mapa {
     private Ubicacion ubicacionActual;
     private List<Ubicacion> ubicaciones;
+    private Personaje heroe;  // Asegurémonos de que el personaje esté aquí
 
-    public Mapa() {
+    public Mapa(Personaje heroe) {
+        this.heroe = heroe;
         ubicaciones = new ArrayList<>();
         configurarMapa();
-        ubicacionActual = ubicaciones.get(0); // Asegurar que la primera ubicación es la actual
+        ubicacionActual = ubicaciones.get(0); // Ubicación inicial del personaje
     }
 
     private void configurarMapa() {
@@ -20,13 +24,13 @@ public class Mapa {
         Ubicacion bosqueEncantado = new Ubicacion("Bosque Encantado", false);
         Ubicacion colinaViento = new Ubicacion("Colina del Viento", false);
         Ubicacion lagoCristal = new Ubicacion("Lago de Cristal", false);
-        Ubicacion cavernaOscura = new Ubicacion("Caverna Oscura", true);
+        Ubicacion cavernaOscura = new Ubicacion("Caverna Oscura (Hoguera)", true);
         Ubicacion puenteAntiguo = new Ubicacion("Puente Antiguo", false);
         Ubicacion llanuraRocosa = new Ubicacion("Llanura Rocosa", false);
         Ubicacion montanaHelada = new Ubicacion("Montaña Helada", false);
         Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false);
         Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false);
-        Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia", true);
+        Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true);
         Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false);
         Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false);
         Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false);
@@ -34,7 +38,7 @@ public class Mapa {
         Ubicacion altarOscuro = new Ubicacion("Altar Oscuro", false);
         Ubicacion fosoProfundo = new Ubicacion("Foso Profundo", false);
         Ubicacion cuevaTesoros = new Ubicacion("Cueva de los Tesoros", false);
-        Ubicacion tronoRey = new Ubicacion("Trono del Rey Olvidado", true);
+        Ubicacion tronoRey = new Ubicacion("Trono del Rey Olvidado (Hoguera)", true);
         Ubicacion bosqueProfundo = new Ubicacion("Bosque Profundo", false);
         Ubicacion altarSagrado = new Ubicacion("Altar Sagrado", false);
         Ubicacion colinaBrumosa = new Ubicacion("Colina Brumosa", false);
@@ -133,9 +137,17 @@ public class Mapa {
 
     public void avanzar(Ubicacion nuevaUbicacion) {
         ubicacionActual = nuevaUbicacion;
+
+        // Verificar si la nueva ubicación es neutral o no
+        if (!ubicacionActual.esNeutral() && !ubicacionActual.getCriaturas().isEmpty()) {
+            // Iniciar combate con la primera criatura en la lista (por ejemplo)
+            Criatura criatura = ubicacionActual.getCriaturas().get(0);
+            VistaCombate.mostrar(this.heroe, criatura); // Llama a VistaCombate para mostrar el combate
+        }
     }
 
     public Ubicacion getUbicacionActual() {
         return ubicacionActual;
     }
+    
 }

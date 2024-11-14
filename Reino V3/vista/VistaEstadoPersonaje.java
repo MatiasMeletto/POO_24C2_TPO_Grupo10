@@ -2,16 +2,13 @@ package vista;
 
 import modelo.Personaje;
 import controlador.ControladorJuego;
+import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 
 public class VistaEstadoPersonaje extends JFrame {
 
     private JLabel labelNombre;
-    private JLabel labelVida;
-    private JLabel labelAtaque;
-    private JLabel labelDefensa;
-    private JLabel labelExperiencia;
 
     private ControladorJuego controlador;
 
@@ -41,16 +38,11 @@ public class VistaEstadoPersonaje extends JFrame {
         // Obtener el personaje desde el controlador
         Personaje personaje = controlador.getPersonaje();
 
-        // Crear y configurar etiquetas de estado
-        labelNombre = new JLabel("Nombre: " + personaje.getNombre(), JLabel.CENTER);
+        List<JLabel> labels = personaje.obtenerLabels();
 
-        // Añadir las etiquetas al panel
-        panel.add(labelNombre);
-        panel.add(labelVida);
-        panel.add(labelAtaque);
-        panel.add(labelDefensa);
-        panel.add(labelExperiencia);
-
+        for (JLabel jLabel : labels) {
+            panel.add(jLabel);
+        }
         return panel;
     }
 

@@ -3,12 +3,13 @@ package modelo;
 public class Dragon extends Criatura {
 
     public Dragon() {
-        super(150, 25, 20, 100);  // Valores iniciales de vida, ataque, defensa y recompensa de experiencia
+        super(100, 15, 8, 100);  // Valores iniciales de vida, ataque, defensa y recompensa de experiencia
     }
 
     @Override
-    public void recibirDanio(int danio, Personaje p) {
+    public int recibirDanio(int danio, Personaje p) {
         puntosVida = (puntosVida - (danio - nivelDefensa));
+        return (int)(danio-nivelDefensa);
     }
 
     @Override

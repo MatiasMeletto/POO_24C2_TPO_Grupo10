@@ -7,17 +7,18 @@ public class Arquero extends Personaje {
     private int agilidad;
 
     public Arquero(String nombre) {
-        super(nombre, 90, 90, 18,12);  // Valores de vida, ataque y defensa iniciales para Arquero
+        super(nombre, 90, 90, 25,3);  // Valores de vida, ataque y defensa iniciales para Arquero
         this.punteria = 75;  // Probabilidad inicial de acierto en ataque
         this.agilidad = 20;  // Probabilidad inicial de esquivar golpes
     }
 
     @Override
-    public void recibirDanio(int danio, Criatura c) {
+    public int recibirDanio(int danio, Criatura c) {
         if (Math.random() >  (float)(agilidad/100)) {
             puntosVida -= (danio - nivelDefensa);
+            return (int)(danio - nivelDefensa);
         }
-
+        return 0;
     }
 
     @Override

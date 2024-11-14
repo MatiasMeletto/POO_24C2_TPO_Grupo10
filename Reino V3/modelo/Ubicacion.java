@@ -13,17 +13,16 @@ public class Ubicacion {
         this.nombre = nombre;
         this.esNeutral = esNeutral;
         this.caminosPosibles = new ArrayList<>();
-        this.criaturas  = new ArrayList<>();
+        this.criaturas = new ArrayList<>();
         if (!this.esNeutral) {
             for (int i = 0; i < 3; i++) {
-                if (Math.random() < 0.25) {
-                    Criatura c = new Dragon();
+                if (Math.random() < 0.50) {
+                    Criatura c = new Espectro(); // Ejemplo con Dragon
                     this.criaturas.add(c);
                 }
             }
         }
-        if (this.criaturas.isEmpty())
-        {
+        if (this.criaturas.isEmpty()) {
             this.esNeutral = true;
         }
     }
@@ -43,4 +42,9 @@ public class Ubicacion {
     public boolean esNeutral() {
         return esNeutral;
     }
+
+    public List<Criatura> getCriaturas() {
+        return criaturas;
+    }
 }
+

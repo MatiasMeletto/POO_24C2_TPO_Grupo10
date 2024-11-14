@@ -35,14 +35,14 @@ public class Combate {
 
     private String ataqueHeroe() {
         int danio = heroe.hacerDanio(criatura);
-        criatura.recibirDanio(danio, heroe);
-        return heroe.getNombre() + " ataca a " + criatura.getClass().getSimpleName() + " causando " + danio + " puntos de daño.";
+        int d = criatura.recibirDanio(danio, heroe);
+        return heroe.getNombre() + " ataca a " + criatura.getClass().getSimpleName() + " causando " + d + " puntos de daño.";
     }
 
     private String ataqueCriatura() {
         int danio = criatura.hacerDanio(heroe);
-        heroe.recibirDanio(danio,criatura);
-        return criatura.getClass().getSimpleName() + " ataca a " + heroe.getNombre() + " causando " + danio + " puntos de daño.";
+        int d = heroe.recibirDanio(danio,criatura);
+        return criatura.getClass().getSimpleName() + " ataca a " + heroe.getNombre() + " causando " + d + " puntos de daño.";
     }
 }
 

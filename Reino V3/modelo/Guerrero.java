@@ -4,12 +4,13 @@ public class Guerrero extends Personaje {
     private boolean dobleAtaqueActivado = false;
 
     public Guerrero(String nombre) {
-        super(nombre, 120, 120, 20,15);  // Valores de vida, ataque y defensa iniciales para Guerrero
+        super(nombre, 150 , 150, 20,10);  // Valores de vida, ataque y defensa iniciales para Guerrero
     }
 
     @Override
-    public void recibirDanio(int danio, Criatura c) {
+    public int recibirDanio(int danio, Criatura c) {
         puntosVida -= (danio - nivelDefensa);
+        return (int)(danio-nivelDefensa);
     }
 
     @Override

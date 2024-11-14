@@ -22,7 +22,7 @@ public abstract class Criatura {
     }
     
     // Sistema de combate
-    public abstract void recibirDanio(int danio, Personaje p) ;
+    public abstract int recibirDanio(int danio, Personaje p) ;
 
     public abstract int hacerDanio(Personaje p);
 }
