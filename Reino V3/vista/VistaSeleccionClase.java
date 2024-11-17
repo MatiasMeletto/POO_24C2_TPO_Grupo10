@@ -8,12 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.Window;
 
 public class VistaSeleccionClase extends JFrame {
-
     private static VistaSeleccionClase instancia; // Instancia única de VistaSeleccionClase
 
     // Constructor privado para implementar el Singleton
     private VistaSeleccionClase(ControladorJuego controlador, String nombreJugador) {
-
         // Configuración de la ventana
         setTitle("Selecciona tu Clase");
         setSize(400, 200);
@@ -87,7 +85,7 @@ public class VistaSeleccionClase extends JFrame {
     }
 
     // Método estático para manejar la derrota y volver a mostrar la ventana (si se desea)
-    public static void derrotado() {
+    public void derrotado() {
         if (instancia != null) {
             instancia.setVisible(true); // Volver a hacer visible la ventana si es necesario
             instancia.toFront(); // Asegura que la ventana está al frente

@@ -26,25 +26,16 @@ public class ControladorJuego {
             default:
                 throw new IllegalArgumentException("Clase de personaje no válida: " + claseSeleccionada);
         }
-
-        // Inicializar el mapa con el personaje seleccionado
-        mapa = new Mapa(personaje);
-
-        // Iniciar el mapa directamente después de seleccionar el personaje
         iniciarMapa();
     }
 
     // Método para mostrar la pantalla del mapa
     public void iniciarMapa() {
+        mapa = new Mapa(personaje);
         VistaMapa.mostrar(this, mapa);  // Mostrar la vista del mapa
     }
-
     // Método para obtener el personaje actual (para uso en otras vistas)
     public Personaje getPersonaje() {
         return personaje;
-    }
-
-    public Mapa getMapa() {
-        return mapa;
     }
 }

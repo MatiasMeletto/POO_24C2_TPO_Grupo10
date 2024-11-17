@@ -19,7 +19,7 @@ public class Ubicacion {
         if (!this.esNeutral) {
             //for (int i = 0; i < 3; i++) {
                 //if (Math.random() < 0.50) {
-                    Criatura c = new Espectro(); // Ejemplo con Dragon
+                    Criatura c = new Troll(); // Ejemplo con Dragon
                     this.criaturas.add(c);
                 //}
             //}
@@ -41,12 +41,10 @@ public class Ubicacion {
         return nombre;
     }
 
-    public boolean esNeutral() {
-        return esNeutral;
-    }
-
     public void crearCombate(Personaje heroe) {
-        VistaCombate.mostrar(heroe, criaturas);
+        if (!esNeutral){
+            VistaCombate.mostrar(heroe, criaturas);
+        }
     }
 }
 

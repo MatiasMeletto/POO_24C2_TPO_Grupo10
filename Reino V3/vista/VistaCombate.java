@@ -10,7 +10,7 @@ import java.util.List;
 
 public class VistaCombate extends JFrame {
 
-    private JTextArea areaCombate;
+    private JEditorPane areaCombate;  // Usar JEditorPane en lugar de JTextArea
     private boolean victoria;
 
     public VistaCombate(Personaje heroe, List<Criatura> criaturas) {
@@ -20,11 +20,12 @@ public class VistaCombate extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        areaCombate = new JTextArea();
-        areaCombate.setEditable(false);
-        areaCombate.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        areaCombate.setLineWrap(true);
-        areaCombate.setWrapStyleWord(true);
+        // Usamos JEditorPane que soporta HTML
+        areaCombate = new JEditorPane();
+        areaCombate.setEditable(false);  // No editable por el usuario
+        areaCombate.setContentType("text/html");  // Establecemos el tipo de contenido a HTML
+        areaCombate.setFont(new Font("Monospaced", Font.PLAIN, 14));  // Puedes cambiar la fuente aquí
+        areaCombate.setText("");  // Limpiamos el área de texto inicial
         JScrollPane scrollPane = new JScrollPane(areaCombate);
         add(scrollPane, BorderLayout.CENTER);
 
@@ -34,34 +35,35 @@ public class VistaCombate extends JFrame {
     private void iniciarCombate(Personaje heroe, List<Criatura> criaturas) {
         Combate combate = new Combate(heroe, criaturas, true);
         String resultadoCombate = combate.iniciarCombate();
-        victoria = combate.getVictoria();  // Almacenamos el resultado (victoria o derrota)
+        victoria = combate.getVictoria();
+        
+        // Establecer el texto HTML en el JEditorPane
         areaCombate.setText(resultadoCombate);
         
         mostrarResultado();
     }
 
     private void mostrarResultado() {
-        // Si el héroe ha perdido, mostramos el mensaje de derrota
-        if (!victoria) {
-            areaCombate.append("\n¡Has sido derrotado! Fin del juego.");
-        } else {
-            areaCombate.append("\n¡Has ganado el combate! Felicitaciones.");
-        }
+        
 
         // Al final, mostramos el botón para continuar
         JButton continuarButton = new JButton("Continuar");
         continuarButton.addActionListener(e -> {
-            // Mostrar mensaje de "Game Over"
+            // Si el héroe ha perdido, mostramos el mensaje de derrota
+        if (!victoria) {
+            areaCombate.setText(areaCombate.getText() + "<br>¡Has sido derrotado! Fin del juego.");
             JOptionPane.showMessageDialog(
                 this,
                 "Game Over",
                 "Fin del Juego",
                 JOptionPane.INFORMATION_MESSAGE
             );
-            // Cerramos la ventana de combate
-            this.dispose();  // Cierra la ventana activa
-            // Mostrar el resumen del combate
             VistaMapa.getInstancia(null, null).derrotado();
+        } else {
+            areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
+        }// Mostrar mensaje de "Game Over"
+            
+            this.dispose();  // Cierra la ventana activa     
         });
 
         add(continuarButton, BorderLayout.SOUTH);

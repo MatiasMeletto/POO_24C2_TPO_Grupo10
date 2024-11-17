@@ -29,7 +29,7 @@ public class Mapa {
         Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false);
         Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false);
         Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true);
-         Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false);
+        Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false);
         Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false);
         Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false);
         Ubicacion valleEcos = new Ubicacion("Valle de los Ecos", false);
@@ -135,16 +135,10 @@ public class Mapa {
 
     public void avanzar(Ubicacion nuevaUbicacion) {
         ubicacionActual = nuevaUbicacion;
-        // Verificar si la nueva ubicación es neutral o no
-        if (!ubicacionActual.esNeutral()) {
-            nuevaUbicacion.crearCombate(heroe);
-        }
-
-        
+        nuevaUbicacion.crearCombate(heroe);      
     }
 
     public Ubicacion getUbicacionActual() {
         return ubicacionActual;
     }
-    
 }

@@ -65,7 +65,7 @@ public class VistaMapa extends JFrame {
     // Método estático para obtener la instancia única
     public static VistaMapa getInstancia(ControladorJuego controlador, Mapa mapa) {
         if (instancia == null) {
-            instancia = new VistaMapa(controlador, mapa);  // Crear la instancia si no existe
+            instancia = new VistaMapa(controlador, mapa);
         }
         return instancia;  // Devolver la instancia existente
     }
