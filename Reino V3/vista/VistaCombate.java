@@ -60,6 +60,8 @@ public class VistaCombate extends JFrame {
             );
             // Cerramos la ventana de combate
             this.dispose();  // Cierra la ventana activa
+            // Mostrar el resumen del combate
+            VistaMapa.getInstancia(null, null).derrotado();
         });
 
         add(continuarButton, BorderLayout.SOUTH);

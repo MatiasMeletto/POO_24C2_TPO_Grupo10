@@ -5,13 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Window;
 
 public class VistaSeleccionClase extends JFrame {
 
-    // private ControladorJuego controlador;
+    private static VistaSeleccionClase instancia; // Instancia única de VistaSeleccionClase
 
-    public VistaSeleccionClase(ControladorJuego controlador, String nombreJugador) {
-        // this.controlador = controlador;
+    // Constructor privado para implementar el Singleton
+    private VistaSeleccionClase(ControladorJuego controlador, String nombreJugador) {
 
         // Configuración de la ventana
         setTitle("Selecciona tu Clase");
@@ -20,7 +21,7 @@ public class VistaSeleccionClase extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Mensaje de selección
+        // Mensaje de bienvenida
         JLabel mensaje = new JLabel("Bienvenido, " + nombreJugador + ". Selecciona tu clase:", JLabel.CENTER);
         mensaje.setFont(new Font("Arial", Font.BOLD, 16));
         add(mensaje, BorderLayout.NORTH);
@@ -38,10 +39,7 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Mago");
-                Window currentWindow = SwingUtilities.getWindowAncestor(null);
-                if (currentWindow != null) {
-                    currentWindow.setVisible(false); // Oculta la ventana actual
-                }
+                ocultarVentana();
             }
         });
 
@@ -49,10 +47,7 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Guerrero");
-                Window currentWindow = SwingUtilities.getWindowAncestor(null);
-                if (currentWindow != null) {
-                    currentWindow.setVisible(false); // Oculta la ventana actual
-                }
+                ocultarVentana();
             }
         });
 
@@ -60,10 +55,7 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Arquero");
-                Window currentWindow = SwingUtilities.getWindowAncestor(null);
-                if (currentWindow != null) {
-                    currentWindow.setVisible(false); // Oculta la ventana actual
-                }
+                ocultarVentana();
             }
         });
 
@@ -73,17 +65,32 @@ public class VistaSeleccionClase extends JFrame {
         add(panelBotones, BorderLayout.CENTER);
     }
 
-    // Método estático para crear y mostrar la instancia de VistaSeleccionClase
-    public static void mostrar(ControladorJuego controlador, String nombreJugador) {
-        SwingUtilities.invokeLater(() -> new VistaSeleccionClase(controlador, nombreJugador).setVisible(true));
+    // Método estático para obtener la instancia única
+    public static VistaSeleccionClase getInstancia(ControladorJuego controlador, String nombreJugador) {
+        if (instancia == null) {
+            instancia = new VistaSeleccionClase(controlador, nombreJugador);  // Crear la instancia si no existe
+        }
+        return instancia;
     }
 
-    public static void derrotado(){
-        Window currentWindow = SwingUtilities.getWindowAncestor(null);
+    // Método para mostrar la vista desde el controlador
+    public static void mostrar(ControladorJuego controlador, String nombreJugador) {
+        SwingUtilities.invokeLater(() -> getInstancia(controlador, nombreJugador).setVisible(true));
+    }
+
+    // Método para ocultar la ventana
+    private void ocultarVentana() {
+        Window currentWindow = SwingUtilities.getWindowAncestor(this);
         if (currentWindow != null) {
-            currentWindow.setVisible(true); // Vuelve a mostrar
+            currentWindow.setVisible(false); // Ocultar la ventana sin eliminarla
+        }
+    }
+
+    // Método estático para manejar la derrota y volver a mostrar la ventana (si se desea)
+    public static void derrotado() {
+        if (instancia != null) {
+            instancia.setVisible(true); // Volver a hacer visible la ventana si es necesario
+            instancia.toFront(); // Asegura que la ventana está al frente
         }
     }
 }
-
-

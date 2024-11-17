@@ -150,4 +150,8 @@ public class VistaMapa extends JFrame {
     public void derrotado(){
         this.dispose();
     }
+    // Método para mostrar esta vista desde el controlador
+    public static void mostrar(ControladorJuego controlador, Mapa mapa) {
+        SwingUtilities.invokeLater(() -> getInstancia(controlador, mapa).setVisible(true));
+    }
 }

@@ -36,7 +36,7 @@ public class ControladorJuego {
 
     // Método para mostrar la pantalla del mapa
     public void iniciarMapa() {
-        VistaMapa.getInstancia(this, mapa);  // Mostrar la vista del mapa
+        VistaMapa.mostrar(this, mapa);  // Mostrar la vista del mapa
     }
 
     // Método para obtener el personaje actual (para uso en otras vistas)

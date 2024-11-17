@@ -2,14 +2,6 @@ package modelo;
 
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
-import vista.VistaCombate;
-import vista.VistaSeleccionClase;
-
-import java.awt.*;
-
 public class Combate {
     private Personaje heroe;
     private List<Criatura> criaturas;
@@ -42,7 +34,6 @@ public class Combate {
             } else {
                 resultado.append(heroe.getNombre()).append(" ha sido derrotado por ").append(criatura.getClass().getSimpleName()).append(".\n");
                 victoria = false;
-                // Mostrar el resumen del combate
             } 
         }
         
