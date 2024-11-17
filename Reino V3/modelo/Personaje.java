@@ -3,9 +3,6 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
-import java.awt.*;
-
-import controlador.*;
 
 public abstract class Personaje {
     protected String nombre;

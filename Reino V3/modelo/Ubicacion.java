@@ -3,6 +3,8 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import vista.VistaCombate;
+
 public class Ubicacion {
     private String nombre;
     private List<Criatura> criaturas;
@@ -15,16 +17,16 @@ public class Ubicacion {
         this.caminosPosibles = new ArrayList<>();
         this.criaturas = new ArrayList<>();
         if (!this.esNeutral) {
-            for (int i = 0; i < 3; i++) {
-                if (Math.random() < 0.50) {
+            //for (int i = 0; i < 3; i++) {
+                //if (Math.random() < 0.50) {
                     Criatura c = new Espectro(); // Ejemplo con Dragon
                     this.criaturas.add(c);
-                }
-            }
+                //}
+            //}
         }
-        if (this.criaturas.isEmpty()) {
-            this.esNeutral = true;
-        }
+        //if (this.criaturas.isEmpty()) {
+            //this.esNeutral = true;
+        //}
     }
 
     public void agregarCamino(Ubicacion ubicacion) {
@@ -43,8 +45,8 @@ public class Ubicacion {
         return esNeutral;
     }
 
-    public List<Criatura> getCriaturas() {
-        return criaturas;
+    public void crearCombate(Personaje heroe) {
+        VistaCombate.mostrar(heroe, criaturas);
     }
 }
 

@@ -11,10 +11,10 @@ public class IngresoNombre extends JFrame {
     private JTextField campoNombre;
     private JButton botonAceptar;
     private JButton botonCancelar;
-    private ControladorJuego controlador;
+    //private ControladorJuego controlador;
 
     public IngresoNombre(ControladorJuego controlador) {
-        this.controlador = controlador;
+        //this.controlador = controlador;
 
         // Configuración de la ventana
         setTitle("Bienvenido al Reino Encantado");

@@ -3,12 +3,10 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import vista.VistaCombate;
-
 public class Mapa {
     private Ubicacion ubicacionActual;
     private List<Ubicacion> ubicaciones;
-    private Personaje heroe;  // Asegurémonos de que el personaje esté aquí
+    private Personaje heroe; 
 
     public Mapa(Personaje heroe) {
         this.heroe = heroe;
@@ -31,7 +29,7 @@ public class Mapa {
         Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false);
         Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false);
         Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true);
-        Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false);
+         Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false);
         Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false);
         Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false);
         Ubicacion valleEcos = new Ubicacion("Valle de los Ecos", false);
@@ -137,13 +135,12 @@ public class Mapa {
 
     public void avanzar(Ubicacion nuevaUbicacion) {
         ubicacionActual = nuevaUbicacion;
-
         // Verificar si la nueva ubicación es neutral o no
-        if (!ubicacionActual.esNeutral() && !ubicacionActual.getCriaturas().isEmpty()) {
-            // Iniciar combate con la primera criatura en la lista (por ejemplo)
-            Criatura criatura = ubicacionActual.getCriaturas().get(0);
-            VistaCombate.mostrar(this.heroe, criatura); // Llama a VistaCombate para mostrar el combate
+        if (!ubicacionActual.esNeutral()) {
+            nuevaUbicacion.crearCombate(heroe);
         }
+
+        
     }
 
     public Ubicacion getUbicacionActual() {

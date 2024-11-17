@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 
 public class VistaSeleccionClase extends JFrame {
 
-    private ControladorJuego controlador;
+    // private ControladorJuego controlador;
 
     public VistaSeleccionClase(ControladorJuego controlador, String nombreJugador) {
-        this.controlador = controlador;
+        // this.controlador = controlador;
 
         // Configuración de la ventana
         setTitle("Selecciona tu Clase");
@@ -38,7 +38,10 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Mago");
-                dispose();
+                Window currentWindow = SwingUtilities.getWindowAncestor(null);
+                if (currentWindow != null) {
+                    currentWindow.setVisible(false); // Oculta la ventana actual
+                }
             }
         });
 
@@ -46,7 +49,10 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Guerrero");
-                dispose();
+                Window currentWindow = SwingUtilities.getWindowAncestor(null);
+                if (currentWindow != null) {
+                    currentWindow.setVisible(false); // Oculta la ventana actual
+                }
             }
         });
 
@@ -54,7 +60,10 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Arquero");
-                dispose();
+                Window currentWindow = SwingUtilities.getWindowAncestor(null);
+                if (currentWindow != null) {
+                    currentWindow.setVisible(false); // Oculta la ventana actual
+                }
             }
         });
 
@@ -67,6 +76,13 @@ public class VistaSeleccionClase extends JFrame {
     // Método estático para crear y mostrar la instancia de VistaSeleccionClase
     public static void mostrar(ControladorJuego controlador, String nombreJugador) {
         SwingUtilities.invokeLater(() -> new VistaSeleccionClase(controlador, nombreJugador).setVisible(true));
+    }
+
+    public static void derrotado(){
+        Window currentWindow = SwingUtilities.getWindowAncestor(null);
+        if (currentWindow != null) {
+            currentWindow.setVisible(true); // Vuelve a mostrar
+        }
     }
 }
 

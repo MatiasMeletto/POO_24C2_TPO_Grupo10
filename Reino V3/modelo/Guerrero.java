@@ -1,7 +1,6 @@
 package modelo;
 
 public class Guerrero extends Personaje {
-    private boolean dobleAtaqueActivado = false;
 
     public Guerrero(String nombre) {
         super(nombre, 150 , 150, 20,10);  // Valores de vida, ataque y defensa iniciales para Guerrero
