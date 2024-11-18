@@ -17,9 +17,11 @@ public class VistaMapa extends JFrame {
     private JLabel titulo;
     private JPanel panelMapa;
     private Map<Ubicacion, JButton> botonesUbicaciones;
+    private ControladorJuego controlador;
 
     // Constructor privado para implementar el Singleton
     private VistaMapa(ControladorJuego controlador, Mapa mapa) {
+        this.controlador = controlador;
         this.mapa = mapa;
         this.botonesUbicaciones = new HashMap<>();
 
@@ -60,14 +62,6 @@ public class VistaMapa extends JFrame {
             dialogoEstado.setVisible(true);
         });
         add(botonEstadoPersonaje, BorderLayout.SOUTH);
-    }
-
-    // Método estático para obtener la instancia única
-    public static VistaMapa getInstancia(ControladorJuego controlador, Mapa mapa) {
-        if (instancia == null) {
-            instancia = new VistaMapa(controlador, mapa);
-        }
-        return instancia;  // Devolver la instancia existente
     }
 
     private void inicializarBotonesUbicaciones() {
@@ -111,11 +105,8 @@ public class VistaMapa extends JFrame {
         botonUbicacion.setEnabled(false); // Deshabilitado hasta que sea alcanzable
 
         botonUbicacion.addActionListener(e -> {    
-            // Avanzar a la nueva ubicación en el mapa
-            mapa.avanzar(ubicacion);
-
+            mapa.avanzar(ubicacion, controlador); // Pasar el controlador aquí
             botonUbicacion.setEnabled(false);
-            // Actualizar la visibilidad de los botones tras avanzar
             actualizarVisibilidadUbicaciones();
         });
 
@@ -147,9 +138,18 @@ public class VistaMapa extends JFrame {
         panelMapa.repaint();
     }
 
-    public void derrotado(){
-        this.dispose();
+    public void derrotado() {
+        instancia = null;  // Elimina la referencia estática para permitir crear una nueva instancia
+        this.dispose();    // Cierra la ventana actual
     }
+    
+    public static VistaMapa getInstancia(ControladorJuego controlador, Mapa mapa) {
+        if (instancia == null || !instancia.isVisible()) { // Verifica si la instancia es nula o está cerrada
+            instancia = new VistaMapa(controlador, mapa);
+        }
+        return instancia;  // Devuelve la nueva instancia o la existente si es válida
+    }
+
     // Método para mostrar esta vista desde el controlador
     public static void mostrar(ControladorJuego controlador, Mapa mapa) {
         SwingUtilities.invokeLater(() -> getInstancia(controlador, mapa).setVisible(true));

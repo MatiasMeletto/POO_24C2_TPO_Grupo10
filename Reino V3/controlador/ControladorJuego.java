@@ -2,6 +2,7 @@ package controlador;
 
 import modelo.*;
 import vista.*;
+import java.awt.Frame;
 
 public class ControladorJuego {
     private Personaje personaje;
@@ -11,7 +12,6 @@ public class ControladorJuego {
         // El mapa se inicializa después de seleccionar el personaje
     }
 
-    // Método para crear el personaje basado en la clase seleccionada
     public void seleccionarPersonaje(String nombre, String claseSeleccionada) {
         switch (claseSeleccionada) {
             case "Mago":
@@ -29,13 +29,36 @@ public class ControladorJuego {
         iniciarMapa();
     }
 
-    // Método para mostrar la pantalla del mapa
     public void iniciarMapa() {
-        mapa = new Mapa(personaje);
-        VistaMapa.mostrar(this, mapa);  // Mostrar la vista del mapa
+        mapa = new Mapa(personaje, this); // Se pasa el controlador al mapa
+        VistaMapa.mostrar(this, mapa);    // Se muestra una nueva instancia de VistaMapa
     }
-    // Método para obtener el personaje actual (para uso en otras vistas)
+    
+    
     public Personaje getPersonaje() {
         return personaje;
     }
+
+    public void reiniciarJuego() {
+        // Eliminar referencias estáticas de VistaMapa
+        VistaMapa.getInstancia(null, null).derrotado(); // Llama a derrotado() para liberar recursos
+        
+        // Reiniciar referencias de juego
+        personaje = null;
+        mapa = null;
+    
+        // Cerrar todas las ventanas activas
+        Frame[] frames = Frame.getFrames();
+        for (Frame frame : frames) {
+            frame.dispose();
+        }
+    
+        // Mostrar la pantalla de ingreso de nombre nuevamente
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            IngresoNombre ingresoNombre = new IngresoNombre(this);
+            ingresoNombre.setVisible(true);
+        });
+    }
+    
+    
 }

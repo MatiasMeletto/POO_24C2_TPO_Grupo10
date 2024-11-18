@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import controlador.ControladorJuego;
 import vista.VistaCombate;
 
 public class Ubicacion {
@@ -10,25 +11,18 @@ public class Ubicacion {
     private List<Criatura> criaturas;
     private boolean esNeutral;
     private List<Ubicacion> caminosPosibles;
+    private ControladorJuego controlador; // Referencia al controlador
 
-    public Ubicacion(String nombre, boolean esNeutral) {
+    public Ubicacion(String nombre, boolean esNeutral, ControladorJuego controlador) {
         this.nombre = nombre;
         this.esNeutral = esNeutral;
         this.caminosPosibles = new ArrayList<>();
         this.criaturas = new ArrayList<>();
         if (!this.esNeutral) {
-            //for (int i = 0; i < 3; i++) {
-                //if (Math.random() < 0.50) {
-                    Criatura c = new Troll(); // Ejemplo con Dragon
-                    this.criaturas.add(c);
-                //}
-            //}
+            Criatura c = new Troll(); // Ejemplo con Troll
+            this.criaturas.add(c);
         }
-        //if (this.criaturas.isEmpty()) {
-            //this.esNeutral = true;
-        //}
     }
-
     public void agregarCamino(Ubicacion ubicacion) {
         caminosPosibles.add(ubicacion);
     }
@@ -41,10 +35,11 @@ public class Ubicacion {
         return nombre;
     }
 
-    public void crearCombate(Personaje heroe) {
-        if (!esNeutral){
-            VistaCombate.mostrar(heroe, criaturas);
+    public void crearCombate(Personaje heroe, ControladorJuego controlador) {
+        if (!esNeutral && controlador != null) { // Verifica que controlador no sea nulo
+            VistaCombate.mostrar(controlador, heroe, criaturas);
         }
     }
+    
+    
 }
-

@@ -3,7 +3,7 @@ package vista;
 import modelo.Combate;
 import modelo.Criatura;
 import modelo.Personaje;
-
+import controlador.ControladorJuego;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -12,8 +12,10 @@ public class VistaCombate extends JFrame {
 
     private JEditorPane areaCombate;  // Usar JEditorPane en lugar de JTextArea
     private boolean victoria;
+    private ControladorJuego controlador;
 
-    public VistaCombate(Personaje heroe, List<Criatura> criaturas) {
+    public VistaCombate(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
+        this.controlador = controlador;
         setTitle("Combate");
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -44,34 +46,31 @@ public class VistaCombate extends JFrame {
     }
 
     private void mostrarResultado() {
-        
-
-        // Al final, mostramos el botón para continuar
         JButton continuarButton = new JButton("Continuar");
         continuarButton.addActionListener(e -> {
-            // Si el héroe ha perdido, mostramos el mensaje de derrota
-        if (!victoria) {
-            areaCombate.setText(areaCombate.getText() + "<br>¡Has sido derrotado! Fin del juego.");
-            JOptionPane.showMessageDialog(
-                this,
-                "Game Over",
-                "Fin del Juego",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-            VistaMapa.getInstancia(null, null).derrotado();
-        } else {
-            areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
-        }// Mostrar mensaje de "Game Over"
-            
-            this.dispose();  // Cierra la ventana activa     
+            if (!victoria) {
+                areaCombate.setText(areaCombate.getText() + "<br>¡Has sido derrotado! Fin del juego.");
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Game Over",
+                    "Fin del Juego",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+                if (controlador != null) {
+                    controlador.reiniciarJuego(); // Asegúrate de que controlador no es nulo
+                }
+            } else {
+                areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
+                this.dispose();
+            }
         });
-
+        
+    
         add(continuarButton, BorderLayout.SOUTH);
-        validate();  // Revalidamos la ventana para que el botón se muestre correctamente
-    }
+        validate();
+    }    
 
-    // Método estático para mostrar la vista de combate
-    public static void mostrar(Personaje heroe, List<Criatura> criaturas) {
-        SwingUtilities.invokeLater(() -> new VistaCombate(heroe, criaturas).setVisible(true));
-    }
+    public static void mostrar(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
+        SwingUtilities.invokeLater(() -> new VistaCombate(controlador, heroe, criaturas).setVisible(true));
+    }    
 }

@@ -3,46 +3,52 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import controlador.ControladorJuego;
+
+
 public class Mapa {
     private Ubicacion ubicacionActual;
     private List<Ubicacion> ubicaciones;
-    private Personaje heroe; 
+    private Personaje heroe;
+    private ControladorJuego controlador;
 
-    public Mapa(Personaje heroe) {
+    public Mapa(Personaje heroe, ControladorJuego controlador) {
         this.heroe = heroe;
+        this.controlador = controlador;  // Se guarda referencia al controlador
         ubicaciones = new ArrayList<>();
-        configurarMapa();
-        ubicacionActual = ubicaciones.get(0); // Ubicación inicial del personaje
+        configurarMapa();                // Configura las ubicaciones del mapa
+        ubicacionActual = ubicaciones.get(0); // Establece la primera ubicación como inicial
     }
+    
 
     private void configurarMapa() {
         // Crear ubicaciones principales y bifurcaciones
-        Ubicacion entradaReino = new Ubicacion("Entrada del Reino", true);
-        Ubicacion caminoBosque = new Ubicacion("Camino del Bosque", false);
-        Ubicacion bosqueEncantado = new Ubicacion("Bosque Encantado", false);
-        Ubicacion colinaViento = new Ubicacion("Colina del Viento", false);
-        Ubicacion lagoCristal = new Ubicacion("Lago de Cristal", false);
-        Ubicacion cavernaOscura = new Ubicacion("Caverna Oscura (Hoguera)", true);
-        Ubicacion puenteAntiguo = new Ubicacion("Puente Antiguo", false);
-        Ubicacion llanuraRocosa = new Ubicacion("Llanura Rocosa", false);
-        Ubicacion montanaHelada = new Ubicacion("Montaña Helada", false);
-        Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false);
-        Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false);
-        Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true);
-        Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false);
-        Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false);
-        Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false);
-        Ubicacion valleEcos = new Ubicacion("Valle de los Ecos", false);
-        Ubicacion altarOscuro = new Ubicacion("Altar Oscuro", false);
-        Ubicacion fosoProfundo = new Ubicacion("Foso Profundo", false);
-        Ubicacion cuevaTesoros = new Ubicacion("Cueva de los Tesoros", false);
-        Ubicacion tronoRey = new Ubicacion("Trono del Rey Olvidado (Hoguera)", true);
-        Ubicacion bosqueProfundo = new Ubicacion("Bosque Profundo", false);
-        Ubicacion altarSagrado = new Ubicacion("Altar Sagrado", false);
-        Ubicacion colinaBrumosa = new Ubicacion("Colina Brumosa", false);
-        Ubicacion desiertoSombrio = new Ubicacion("Desierto Sombrío", false);
-        Ubicacion cascadaSilenciosa = new Ubicacion("Cascada Silenciosa", false);
-        Ubicacion torreEspectral = new Ubicacion("Torre Espectral", true);
+        Ubicacion entradaReino = new Ubicacion("Entrada del Reino", true, controlador);
+        Ubicacion caminoBosque = new Ubicacion("Camino del Bosque", false, controlador);
+        Ubicacion bosqueEncantado = new Ubicacion("Bosque Encantado", false, controlador);
+        Ubicacion colinaViento = new Ubicacion("Colina del Viento", false, controlador);
+        Ubicacion lagoCristal = new Ubicacion("Lago de Cristal", false, controlador);
+        Ubicacion cavernaOscura = new Ubicacion("Caverna Oscura (Hoguera)", true, controlador);
+        Ubicacion puenteAntiguo = new Ubicacion("Puente Antiguo", false, controlador);
+        Ubicacion llanuraRocosa = new Ubicacion("Llanura Rocosa", false, controlador);
+        Ubicacion montanaHelada = new Ubicacion("Montaña Helada", false, controlador);
+        Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false, controlador);
+        Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false, controlador);
+        Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true, controlador);
+        Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false, controlador);
+        Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false, controlador);
+        Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false, controlador);
+        Ubicacion valleEcos = new Ubicacion("Valle de los Ecos", false, controlador);
+        Ubicacion altarOscuro = new Ubicacion("Altar Oscuro", false, controlador);
+        Ubicacion fosoProfundo = new Ubicacion("Foso Profundo", false, controlador);
+        Ubicacion cuevaTesoros = new Ubicacion("Cueva de los Tesoros", false, controlador);
+        Ubicacion tronoRey = new Ubicacion("Trono del Rey Olvidado (Hoguera)", true, controlador);
+        Ubicacion bosqueProfundo = new Ubicacion("Bosque Profundo", false, controlador);
+        Ubicacion altarSagrado = new Ubicacion("Altar Sagrado", false, controlador);
+        Ubicacion colinaBrumosa = new Ubicacion("Colina Brumosa", false, controlador);
+        Ubicacion desiertoSombrio = new Ubicacion("Desierto Sombrío", false, controlador);
+        Ubicacion cascadaSilenciosa = new Ubicacion("Cascada Silenciosa", false, controlador);
+        Ubicacion torreEspectral = new Ubicacion("Torre Espectral", true, controlador);
 
         // Configurar caminos y bifurcaciones correctamente
         entradaReino.agregarCamino(caminoBosque);       //Lineal
@@ -133,10 +139,10 @@ public class Mapa {
         return ubicacionActual.getCaminosPosibles();
     }
 
-    public void avanzar(Ubicacion nuevaUbicacion) {
+    public void avanzar(Ubicacion nuevaUbicacion, ControladorJuego controlador) {
         ubicacionActual = nuevaUbicacion;
-        nuevaUbicacion.crearCombate(heroe);      
-    }
+        nuevaUbicacion.crearCombate(heroe, controlador);
+    }    
 
     public Ubicacion getUbicacionActual() {
         return ubicacionActual;
