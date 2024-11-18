@@ -41,6 +41,9 @@ public class Ubicacion {
                 }
             }
         }
+        if (criaturas.isEmpty()){
+            this.esNeutral = true;
+        }
     }
     
     public void agregarCamino(Ubicacion ubicacion) {
@@ -60,6 +63,4 @@ public class Ubicacion {
             VistaCombate.mostrar(controlador, heroe, criaturas);
         }
     }
-    
-    
 }

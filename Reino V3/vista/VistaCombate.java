@@ -13,8 +13,11 @@ public class VistaCombate extends JFrame {
     private JEditorPane areaCombate;  // Usar JEditorPane en lugar de JTextArea
     private boolean victoria;
     private ControladorJuego controlador;
+    private Personaje heroe;
 
     public VistaCombate(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
+        this.heroe = heroe;
+        this.victoria = false;
         this.controlador = controlador;
         setTitle("Combate");
         setSize(600, 400);
@@ -62,6 +65,7 @@ public class VistaCombate extends JFrame {
             } else {
                 areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
                 this.dispose();
+                heroe.subirNivel();
             }
         });
         

@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Window;
 
 public class VistaSeleccionClase extends JFrame {
     private static VistaSeleccionClase instancia; // Instancia única de VistaSeleccionClase
@@ -78,17 +77,6 @@ public class VistaSeleccionClase extends JFrame {
 
     // Método para ocultar la ventana
     private void ocultarVentana() {
-        Window currentWindow = SwingUtilities.getWindowAncestor(this);
-        if (currentWindow != null) {
-            currentWindow.setVisible(false); // Ocultar la ventana sin eliminarla
-        }
-    }
-
-    // Método estático para manejar la derrota y volver a mostrar la ventana (si se desea)
-    public void derrotado() {
-        if (instancia != null) {
-            instancia.setVisible(true); // Volver a hacer visible la ventana si es necesario
-            instancia.toFront(); // Asegura que la ventana está al frente
-        }
+        this.dispose();
     }
 }
