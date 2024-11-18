@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controlador.ControladorJuego;
+import vista.VistaCinematica;
 
 
 public class Mapa {
     private Ubicacion ubicacionActual;
+    private Ubicacion ubicacionFinal;
     private List<Ubicacion> ubicaciones;
     private Personaje heroe;
     private ControladorJuego controlador;
@@ -129,6 +131,7 @@ public class Mapa {
 
         // Establecer la primera ubicación como la actual
         ubicacionActual = entradaReino;
+        ubicacionFinal = torreEspectral;
     }
 
     public List<Ubicacion> getUbicaciones() {
@@ -140,8 +143,12 @@ public class Mapa {
     }
 
     public void avanzar(Ubicacion nuevaUbicacion, ControladorJuego controlador) {
-        ubicacionActual = nuevaUbicacion;
-        nuevaUbicacion.crearCombate(heroe, controlador);
+        if(nuevaUbicacion != ubicacionFinal){            
+            ubicacionActual = nuevaUbicacion;
+            nuevaUbicacion.crearCombate(heroe, controlador);
+        }else{
+            VistaCinematica.getInstancia().mostrarCinematica("f");
+        }
     }    
 
     public Ubicacion getUbicacionActual() {

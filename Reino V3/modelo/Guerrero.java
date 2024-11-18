@@ -3,7 +3,7 @@ package modelo;
 public class Guerrero extends Personaje {
 
     public Guerrero(String nombre) {
-        super(nombre, 1200 , 1200, 50,35);  // Valores de vida, ataque y defensa iniciales para Guerrero
+        super(nombre, 12000 , 1200, 50,35);  // Valores de vida, ataque y defensa iniciales para Guerrero
     }
 
     @Override
