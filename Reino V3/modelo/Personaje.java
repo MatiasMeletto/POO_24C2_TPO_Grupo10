@@ -52,9 +52,19 @@ public abstract class Personaje {
         this.experiencia += experiencia;
         if (this.experiencia > 100) { //ejemplo con 100 recordar ajustar el juego
             this.experiencia = experiencia - 100;
+            subirNivel();
         }
     }
+    public void subirNivel(){
+        String mensaje = "¡Felicidades, " + nombre + "!\n" + "Has subido de nivel!" ;
 
+        JOptionPane.showMessageDialog(
+            null,              // Componente padre (null significa sin componente)
+            mensaje,           // Mensaje que se mostrará
+            "¡Subida de Nivel!", // Título del pop-up
+            JOptionPane.INFORMATION_MESSAGE // Tipo de mensaje (información)
+        );
+    }
     // Método abstracto para restaurar la vida, cada clase puede definir su propio comportamiento
     public abstract void restaurarVida();
 }

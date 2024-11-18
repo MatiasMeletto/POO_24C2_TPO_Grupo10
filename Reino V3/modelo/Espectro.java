@@ -3,13 +3,16 @@ package modelo;
 public class Espectro extends Criatura {
 
     public Espectro() {
-        super(60, 10, 3, 40);  // Valores iniciales de vida, ataque, defensa y recompensa de experiencia
+        super(100, 65, 25, 30);  // Valores iniciales de vida, ataque, defensa y recompensa de experiencia
     }
 
     @Override
     public int recibirDanio(int danio, Personaje p) {
-        puntosVida = (puntosVida - (danio - nivelDefensa));
-        return (int)(danio-nivelDefensa);
+        if (danio != 0 || (danio-(nivelDefensa*1.15)) > 0 || (danio-nivelDefensa) > 0) {
+            puntosVida = (puntosVida - (danio - nivelDefensa));
+            return (int)(danio-nivelDefensa);
+        }
+        return 0;
     }
 
     @Override

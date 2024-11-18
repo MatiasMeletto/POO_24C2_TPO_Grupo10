@@ -1,18 +1,19 @@
 package modelo;
 
 public class Arquero extends Personaje {
-    private int punteria;
-    private int agilidad;
+    private float punteria;
+    private float agilidad;
 
     public Arquero(String nombre) {
-        super(nombre, 90, 90, 25,3);  // Valores de vida, ataque y defensa iniciales para Arquero
-        this.punteria = 75;  // Probabilidad inicial de acierto en ataque
-        this.agilidad = 20;  // Probabilidad inicial de esquivar golpes
+        super(nombre, 900, 900, 60,30);  // Valores de vida, ataque y defensa iniciales para Arquero
+        this.punteria = 90;  // Probabilidad inicial de acierto en ataque
+        this.agilidad = 30;  // Probabilidad inicial de esquivar golpes
     }
 
     @Override
     public int recibirDanio(int danio, Criatura c) {
-        if (Math.random() >  (float)(agilidad/100)) {
+        double a = agilidad / 100;
+        if (Math.random() > a) {
             puntosVida -= (danio - nivelDefensa);
             return (int)(danio - nivelDefensa);
         }
@@ -24,7 +25,8 @@ public class Arquero extends Personaje {
         if (c instanceof Dragon) {
             return nivelAtaque;
         }
-        if (Math.random() < (float)(punteria/100)){
+        float p = punteria / 100;
+        if (Math.random() < p){
             return nivelAtaque;
         }
         return 0;
