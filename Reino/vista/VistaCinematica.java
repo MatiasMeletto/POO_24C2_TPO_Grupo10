@@ -1,5 +1,11 @@
 package vista;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -8,15 +14,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class VistaCinematica extends JFrame {
     private static VistaCinematica instancia; // Singleton
 
     private VistaCinematica() {
         setTitle("Cinemática Final");
-        setSize(800, 600);
+        setSize(1280, 768);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
