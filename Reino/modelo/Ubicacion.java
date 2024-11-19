@@ -47,13 +47,13 @@ public class Ubicacion {
                 }
             }
         }
-        if (nombre.contains("Torre Espectral")){
-            for (int i = 0; i < 4; i++) {
-                Criatura c = new Dragon();
-                this.criaturas.add(c);
-            }
-            this.esNeutral = false;
-        }
+        //if (nombre.contains("Torre Espectral")){
+        //    for (int i = 0; i < 4; i++) {
+        //        Criatura c = new Dragon();
+        //        this.criaturas.add(c);
+        //    }
+        //    this.esNeutral = false;
+        //}
     }
     
     public void setEventoEspecial(Runnable eventoEspecial) {
