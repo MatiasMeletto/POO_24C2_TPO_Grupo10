@@ -147,7 +147,15 @@ public class Mapa {
             ubicacionActual = nuevaUbicacion;
             nuevaUbicacion.crearCombate(heroe, controlador);
         }else{
-            String videoPath = "file:///C:/re/ar.mp4";
+            String videoPath = "";
+            if (heroe instanceof Mago){
+                videoPath = "file:///C:/re/mago.mp4";
+            }else if (heroe instanceof Arquero){
+                videoPath = "file:///C:/re/ar.mp4";
+            }else if (heroe instanceof Guerrero){
+                videoPath = "file:///C:/re/gu.mp4";
+            }
+            
             VistaCinematica.getInstancia().mostrarCinematica(videoPath);
         }
     }    

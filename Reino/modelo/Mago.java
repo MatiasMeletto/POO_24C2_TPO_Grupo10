@@ -9,8 +9,10 @@ public class Mago extends Personaje {
     @Override
     public int recibirDanio(int danio, Criatura c) {
         if (!(c instanceof Espectro)){
-            puntosVida -= (danio - nivelDefensa);
-            return (int)(danio-nivelDefensa);
+            if(danio != 0 && (danio-nivelDefensa) > 0){
+                puntosVida -= (danio - nivelDefensa);
+                return (int)(danio-nivelDefensa);
+            }
         }
         return 0;
     }
@@ -22,6 +24,6 @@ public class Mago extends Personaje {
 
     @Override
     public void restaurarVida() {
-        this.puntosVida = 100;  // Cura al 100% al final de cada combate
+        this.puntosVida = maxVida;  // Cura al 100% al final de cada combate
     }
 }

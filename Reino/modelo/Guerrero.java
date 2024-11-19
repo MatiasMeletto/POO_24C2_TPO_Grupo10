@@ -8,8 +8,11 @@ public class Guerrero extends Personaje {
 
     @Override
     public int recibirDanio(int danio, Criatura c) {
-        puntosVida -= (danio - nivelDefensa);
-        return (int)(danio-nivelDefensa);
+        if(danio != 0 && (danio-nivelDefensa) > 0){
+            puntosVida -= (danio - nivelDefensa);
+            return (int)(danio-nivelDefensa);
+        }
+        return 0;
     }
 
     @Override
@@ -22,6 +25,6 @@ public class Guerrero extends Personaje {
 
     @Override
     public void restaurarVida() {
-        // Guerrero no tiene restauración de vida especial
+        puntosVida += (int)(maxVida * 0.20);
     }
 }

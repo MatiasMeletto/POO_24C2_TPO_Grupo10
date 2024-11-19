@@ -14,8 +14,10 @@ public class Arquero extends Personaje {
     public int recibirDanio(int danio, Criatura c) {
         double a = agilidad / 100;
         if (Math.random() > a) {
-            puntosVida -= (danio - nivelDefensa);
-            return (int)(danio - nivelDefensa);
+            if(danio != 0 && (danio-nivelDefensa) > 0){
+                puntosVida -= (danio - nivelDefensa);
+                return (int)(danio - nivelDefensa);
+            }
         }
         return 0;
     }
@@ -34,6 +36,6 @@ public class Arquero extends Personaje {
 
     @Override
     public void restaurarVida() {
-        // Arquero no tiene restauración de vida especial
+        puntosVida += (int)(maxVida * 0.40);
     }
 }

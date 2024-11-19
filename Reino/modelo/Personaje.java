@@ -2,7 +2,9 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public abstract class Personaje {
     protected String nombre;
@@ -52,17 +54,49 @@ public abstract class Personaje {
         this.experiencia += experiencia;
     }
     
-    public void subirNivel(){
-        if (this.experiencia > 100) { 
+    public void subirNivel() {
+        if (this.experiencia > 100) {
             this.experiencia = experiencia - 100;
-            String mensaje = "¡Felicidades, " + nombre + "!\n" + "Has subido de nivel!" ;
-
-            JOptionPane.showMessageDialog(
-                null,              // Componente padre (null significa sin componente)
-                mensaje,           // Mensaje que se mostrará
+    
+            // Mensaje principal
+            String mensaje = "¡Felicidades, " + nombre + "!\nHas subido de nivel.\n" +
+                             "Elige una mejora:";
+    
+            String[] opciones = {"Vida", "Defensa", "Ataque"};
+    
+            // Mostrar el cuadro de diálogo con las opciones
+            int eleccion = JOptionPane.showOptionDialog(
+                null,         
+                mensaje,            // Mensaje principal
                 "¡Subida de Nivel!", // Título del pop-up
-                JOptionPane.INFORMATION_MESSAGE // Tipo de mensaje (información)
+                JOptionPane.DEFAULT_OPTION, // Tipo de opción
+                JOptionPane.INFORMATION_MESSAGE, // Tipo de mensaje
+                null,               // Ícono personalizado (null para usar el predeterminado)
+                opciones,           // Opciones que aparecerán
+                opciones[0]         // Opción seleccionada por defecto
             );
+    
+            // Aplicar la mejora elegida
+            switch (eleccion) {
+                case 0 -> {
+                    // Vida
+                    this.puntosVida += 10;
+                    this.maxVida += 10; 
+                    JOptionPane.showMessageDialog(null, "¡Has mejorado tu vida!");
+                }
+                case 1 -> {
+                    // Defensa
+                    this.nivelDefensa += 5; // Ejemplo: Incrementar defensa en 5
+                    JOptionPane.showMessageDialog(null, "¡Has mejorado tu defensa!");
+                }
+                case 2 -> {
+                    // Ataque
+                    this.nivelAtaque += 5; // Ejemplo: Incrementar ataque en 5
+                    JOptionPane.showMessageDialog(null, "¡Has mejorado tu ataque!");
+                }
+                default -> // Ninguna opción seleccionada
+                    JOptionPane.showMessageDialog(null, "No seleccionaste ninguna mejora.");
+            }
         }
     }
     // Método abstracto para restaurar la vida, cada clase puede definir su propio comportamiento

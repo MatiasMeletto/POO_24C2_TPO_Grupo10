@@ -80,6 +80,7 @@ public class VistaCinematica extends JFrame {
             );
             dispose();
             instancia = null; // Liberar instancia para el Singleton
+            VistaMapa.getInstancia(null, null).dispose();
         });
     }
 }

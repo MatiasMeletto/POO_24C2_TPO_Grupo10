@@ -43,11 +43,7 @@ public class Ubicacion {
                     Criatura c = new Dragon();
                     this.criaturas.add(c);
                 }
-
             }
-        }
-        if (criaturas.isEmpty()){
-            this.esNeutral = true;
         }
     }
     
@@ -66,6 +62,8 @@ public class Ubicacion {
     public void crearCombate(Personaje heroe, ControladorJuego controlador) {
         if (!esNeutral && controlador != null) { // Verifica que controlador no sea nulo
             VistaCombate.mostrar(controlador, heroe, criaturas);
+        }else if(esNeutral){
+            heroe.restaurarVida();
         }
     }
 }
