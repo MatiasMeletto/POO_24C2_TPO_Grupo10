@@ -18,7 +18,7 @@ public class Ubicacion {
         this.criaturas = new ArrayList<>();
         if (!this.esNeutral) {
             double tipoEnemigo = Math.random();
-            if (tipoEnemigo >= 0 && tipoEnemigo <= 0.37) {
+            if (tipoEnemigo >= 0 && tipoEnemigo <= 0.425) {
                 Criatura cr = new Troll();
                 this.criaturas.add(cr);
                 for (int i = 0; i < 2; i++) {
@@ -27,7 +27,7 @@ public class Ubicacion {
                         this.criaturas.add(c);
                     }
                 }
-            }else if (tipoEnemigo > 0.37 && tipoEnemigo <= 0.74) {
+            }else if (tipoEnemigo > 0.425 && tipoEnemigo <= 0.85) {
                 Criatura cr = new Espectro();
                 this.criaturas.add(cr);
                 for (int i = 0; i < 3; i++) {
@@ -36,7 +36,7 @@ public class Ubicacion {
                         this.criaturas.add(c);
                     }
                 }
-            }else if (tipoEnemigo > 0.74 && tipoEnemigo <= 1) {
+            }else if (tipoEnemigo > 0.85 && tipoEnemigo <= 1) {
                 Criatura cr = new Dragon();
                 this.criaturas.add(cr);
                 if (Math.random() > 0.75){
@@ -44,6 +44,13 @@ public class Ubicacion {
                     this.criaturas.add(c);
                 }
             }
+        }
+        if (nombre.contains("Torre Espectral")){
+            for (int i = 0; i < 4; i++) {
+                Criatura c = new Dragon();
+                this.criaturas.add(c);
+            }
+            this.esNeutral = false;
         }
     }
     

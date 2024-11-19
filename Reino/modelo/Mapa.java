@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controlador.ControladorJuego;
-import vista.VistaCinematica;
 
 
 public class Mapa {
@@ -142,22 +141,9 @@ public class Mapa {
         return ubicacionActual.getCaminosPosibles();
     }
 
-    public void avanzar(Ubicacion nuevaUbicacion, ControladorJuego controlador) {
-        if(nuevaUbicacion != ubicacionFinal){            
-            ubicacionActual = nuevaUbicacion;
-            nuevaUbicacion.crearCombate(heroe, controlador);
-        }else{
-            String videoPath = "";
-            if (heroe instanceof Mago){
-                videoPath = "file:///C:/re/mago.mp4";
-            }else if (heroe instanceof Arquero){
-                videoPath = "file:///C:/re/ar.mp4";
-            }else if (heroe instanceof Guerrero){
-                videoPath = "file:///C:/re/gu.mp4";
-            }
-            
-            VistaCinematica.getInstancia().mostrarCinematica(videoPath);
-        }
+    public void avanzar(Ubicacion nuevaUbicacion, ControladorJuego controlador) {          
+        ubicacionActual = nuevaUbicacion;
+        nuevaUbicacion.crearCombate(heroe, controlador);
     }    
 
     public Ubicacion getUbicacionActual() {

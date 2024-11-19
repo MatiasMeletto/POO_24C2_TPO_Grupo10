@@ -1,12 +1,23 @@
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
+import controlador.ControladorJuego;
+import modelo.Arquero;
 import modelo.Combate;
 import modelo.Criatura;
+import modelo.Guerrero;
+import modelo.Mago;
 import modelo.Personaje;
-import controlador.ControladorJuego;
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
 
 public class VistaCombate extends JFrame {
 
@@ -14,10 +25,14 @@ public class VistaCombate extends JFrame {
     private boolean victoria;
     private ControladorJuego controlador;
     private Personaje heroe;
+    private boolean combateFinal;
 
     public VistaCombate(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
         this.heroe = heroe;
         this.victoria = false;
+        if(criaturas.size()> 3){
+            combateFinal = true;
+        }
         this.controlador = controlador;
         setTitle("Combate");
         setSize(600, 400);
@@ -66,6 +81,17 @@ public class VistaCombate extends JFrame {
                 areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
                 this.dispose();
                 heroe.subirNivel();
+            }
+            if(combateFinal){
+                String videoPath = "";
+                if (heroe instanceof Mago){
+                    videoPath = "file:///C:/re/mago.mp4";
+                }else if (heroe instanceof Arquero){
+                    videoPath = "file:///C:/re/ar.mp4";
+                }else if (heroe instanceof Guerrero){
+                    videoPath = "file:///C:/re/gu.mp4";
+                }
+                VistaCinematica.getInstancia().mostrarCinematica(videoPath);
             }
         });
         
