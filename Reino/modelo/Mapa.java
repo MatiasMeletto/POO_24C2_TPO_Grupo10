@@ -36,16 +36,16 @@ public class Mapa {
         Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false, controlador);
         Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false, controlador);
         Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true, controlador);
-        Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false, controlador);
+        Ubicacion bosqueSussuros = new Ubicacion("Bosque de los Susurros", false, controlador);
         Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false, controlador);
         Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false, controlador);
         Ubicacion valleEcos = new Ubicacion("Valle de los Ecos", false, controlador);
         Ubicacion altarOscuro = new Ubicacion("Altar Oscuro", false, controlador);
         Ubicacion fosoProfundo = new Ubicacion("Foso Profundo", false, controlador);
-        Ubicacion cuevaTesoros = new Ubicacion("Cueva de los Tesoros", false, controlador);
+        Ubicacion pantanoOscuro = new Ubicacion("Pantano Oscuro", false, controlador);
         Ubicacion tronoRey = new Ubicacion("Trono del Rey Olvidado (Hoguera)", true, controlador);
         Ubicacion bosqueProfundo = new Ubicacion("Bosque Profundo", false, controlador);
-        Ubicacion altarSagrado = new Ubicacion("Altar Sagrado", false, controlador);
+        Ubicacion aldeaSirith = new Ubicacion("Aldea de los Sirith", false, controlador);
         Ubicacion colinaBrumosa = new Ubicacion("Colina Brumosa", false, controlador);
         Ubicacion desiertoSombrio = new Ubicacion("Desierto Sombrío", false, controlador);
         Ubicacion cascadaSilenciosa = new Ubicacion("Cascada Silenciosa", false, controlador);
@@ -73,27 +73,27 @@ public class Mapa {
 
         puebloAbandonado.agregarCamino(torreVigilancia);    //Lineal
 
-        torreVigilancia.agregarCamino(bosqueSombrio);  // Bifurcación izquierda
+        torreVigilancia.agregarCamino(bosqueSussuros);  // Bifurcación izquierda
         torreVigilancia.agregarCamino(ruinasAntiguas); // Bifurcación derecha
 
-        bosqueSombrio.agregarCamino(campoBatalla);      //Union
+        bosqueSussuros.agregarCamino(campoBatalla);      //Union
         ruinasAntiguas.agregarCamino(campoBatalla);     //Union
 
         campoBatalla.agregarCamino(valleEcos);  // Bifuracion Izquierda
         campoBatalla.agregarCamino(altarOscuro);  // Bifurcacion Derecha
 
         valleEcos.agregarCamino(fosoProfundo);  // Lineal
-        altarOscuro.agregarCamino(cuevaTesoros); // Lineal
+        altarOscuro.agregarCamino(pantanoOscuro); // Lineal
 
         fosoProfundo.agregarCamino(tronoRey); //Union
-        cuevaTesoros.agregarCamino(tronoRey); //Union
+        pantanoOscuro.agregarCamino(tronoRey); //Union
 
         tronoRey.agregarCamino(bosqueProfundo); //Lineal
 
-        bosqueProfundo.agregarCamino(altarSagrado); //Lineal
+        bosqueProfundo.agregarCamino(aldeaSirith); //Lineal
 
-        altarSagrado.agregarCamino(colinaBrumosa); //Bifurcacion izquierda
-        altarSagrado.agregarCamino(desiertoSombrio); //Bifurcacion derecha
+        aldeaSirith.agregarCamino(colinaBrumosa); //Bifurcacion izquierda
+        aldeaSirith.agregarCamino(desiertoSombrio); //Bifurcacion derecha
 
         colinaBrumosa.agregarCamino(cascadaSilenciosa); //Union
         desiertoSombrio.agregarCamino(cascadaSilenciosa); //Union
@@ -113,16 +113,16 @@ public class Mapa {
         ubicaciones.add(pantanoNiebla);
         ubicaciones.add(puebloAbandonado);
         ubicaciones.add(torreVigilancia);
-        ubicaciones.add(bosqueSombrio);
+        ubicaciones.add(bosqueSussuros);
         ubicaciones.add(ruinasAntiguas);
         ubicaciones.add(campoBatalla);
         ubicaciones.add(valleEcos);
         ubicaciones.add(altarOscuro);
         ubicaciones.add(fosoProfundo);
-        ubicaciones.add(cuevaTesoros);
+        ubicaciones.add(pantanoOscuro);
         ubicaciones.add(tronoRey);
         ubicaciones.add(bosqueProfundo);
-        ubicaciones.add(altarSagrado);
+        ubicaciones.add(aldeaSirith);
         ubicaciones.add(colinaBrumosa);
         ubicaciones.add(desiertoSombrio);
         ubicaciones.add(cascadaSilenciosa);
