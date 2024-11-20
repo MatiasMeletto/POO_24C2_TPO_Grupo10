@@ -1,14 +1,32 @@
 package vista;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import controlador.ControladorJuego;
 
 public class IngresoNombre extends JPanel {
     private JTextField campoNombre;
+    private Image imagenFondo = new ImageIcon("C:/re/o.jpg").getImage();
 
     public IngresoNombre(ControladorJuego controlador) {
+        File archivo = new File("C:/re/o.jpg");
+        if (!archivo.exists()) {
+            System.err.println("El archivo de imagen no se encuentra en la ruta especificada.");
+        }
         // Configuración del layout principal
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -62,5 +80,15 @@ public class IngresoNombre extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER; // Centrado
         add(panelBotones, gbc);
     }    
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (imagenFondo != null) {
+            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+        } else {
+            System.err.println("La imagen de fondo no se pudo cargar.");
+        }
+    }
 }
 

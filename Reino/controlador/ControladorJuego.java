@@ -1,36 +1,52 @@
 package controlador;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import modelo.*;
-import vista.*;
+
+import modelo.Arquero;
+import modelo.Guerrero;
+import modelo.Mago;
+import modelo.Mapa;
+import modelo.Personaje;
+import vista.IngresoNombre;
+import vista.VistaHub;
+import vista.VistaMapa;
 
 public class ControladorJuego {
+    private static ControladorJuego instancia;
     private JFrame ventanaPrincipal;
     private Personaje personaje;
     private Mapa mapa;
 
-    public ControladorJuego() {
+    private ControladorJuego() {
         ventanaPrincipal = new JFrame("Reino de Uadengard");
         ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventanaPrincipal.setSize(800, 600); // Tamaño fijo de la ventana
         ventanaPrincipal.setLocationRelativeTo(null); // Centra la ventana en la pantalla
         ventanaPrincipal.setLayout(new BorderLayout()); // Usa BorderLayout para centrar el contenido
         ventanaPrincipal.setVisible(true);
-    }
 
+    }
+    public static ControladorJuego getInstancia() {
+        if (instancia == null) {
+            instancia = new ControladorJuego();
+        }
+        return instancia;
+    }
     public void cambiarVista(JPanel nuevaVista) {
         ventanaPrincipal.getContentPane().removeAll(); // Limpia el contenido actual.
         ventanaPrincipal.add(nuevaVista, BorderLayout.CENTER); // Añade la vista centrada.
     
-        nuevaVista.setBounds(0, 0, ventanaPrincipal.getWidth(), ventanaPrincipal.getHeight()); // Ajusta el tamaño.
+        nuevaVista.setBounds(0, 0, ventanaPrincipal.getWidth(), ventanaPrincipal.getHeight()); 
         ventanaPrincipal.revalidate();
         ventanaPrincipal.repaint();
     
         // Forzar el tamaño de la ventana principal
-        ventanaPrincipal.setSize(1000, 900); // Tamaño constante definido
-        ventanaPrincipal.setLocationRelativeTo(null); // Recentrar la ventana
+        ventanaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ventanaPrincipal.setUndecorated(true);
+        ventanaPrincipal.setVisible(true);  
     }
     
     public void iniciarJuego() {

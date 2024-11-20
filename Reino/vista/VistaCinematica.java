@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import controlador.ControladorJuego;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -80,7 +81,7 @@ public class VistaCinematica extends JFrame {
             );
             dispose();
             instancia = null; // Liberar instancia para el Singleton
-            VistaMapa.getInstancia(null, null).dispose();
+            ControladorJuego.getInstancia().reiniciarJuego();
         });
     }
 }
