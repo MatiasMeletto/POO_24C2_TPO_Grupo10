@@ -37,7 +37,7 @@ public class Objeto {
     }
     public boolean Reclamable(){
         if(heroe != null){
-            return true;
+            return false;
         }
         return reclamable;
     }
