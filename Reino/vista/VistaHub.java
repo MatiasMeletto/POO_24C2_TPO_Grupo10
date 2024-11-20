@@ -5,25 +5,18 @@ import controlador.ControladorJuego;
 import javax.swing.*;
 import java.awt.*;
 
-public class VistaHub extends JFrame {
+public class VistaHub extends JPanel {
     private ControladorJuego controlador;
 
     public VistaHub(ControladorJuego controlador) {
         this.controlador = controlador;
 
-        // Configuración de la ventana
-        setTitle("Hub del Reino de Uadengard");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        // Configuración del panel
         setLayout(new GridLayout(2, 2, 10, 10)); // Disposición de los botones en una cuadrícula
 
         // Botón para el mapa
         JButton botonMapa = new JButton("Mapa");
-        botonMapa.addActionListener(e -> {
-            this.dispose();
-            VistaMapa.mostrar(controlador, controlador.getMapa());
-        });
+        botonMapa.addActionListener(e -> controlador.cambiarVista(new VistaMapa(controlador, controlador.getMapa())));
         add(botonMapa);
 
         // Botón para misiones secundarias
@@ -38,11 +31,8 @@ public class VistaHub extends JFrame {
         JButton botonEstado = new JButton("Estado del Personaje");
         botonEstado.addActionListener(e -> {
             // Mostrar la vista de estado del personaje
-            JDialog dialogoEstado = new JDialog(this, "Estado del Personaje", true);
-            dialogoEstado.setSize(400, 300);
-            dialogoEstado.setLocationRelativeTo(this);
-            dialogoEstado.add(new VistaEstadoPersonaje(controlador).getPanelEstado());
-            dialogoEstado.setVisible(true);
+            JPanel panelEstado = new VistaEstadoPersonaje(controlador).getPanelEstado();
+            controlador.cambiarVista(panelEstado); // Cambia la vista al estado del personaje
         });
         add(botonEstado);
 
@@ -55,8 +45,8 @@ public class VistaHub extends JFrame {
         add(botonInventario);
     }
 
-    // Método para mostrar esta vista desde el controlador
+    // Método estático para mostrar esta vista desde el controlador
     public static void mostrar(ControladorJuego controlador) {
-        SwingUtilities.invokeLater(() -> new VistaHub(controlador).setVisible(true));
+        controlador.cambiarVista(new VistaHub(controlador));
     }
 }

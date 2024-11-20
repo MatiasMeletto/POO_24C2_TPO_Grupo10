@@ -6,10 +6,9 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
 import controlador.ControladorJuego;
 import modelo.Arquero;
@@ -19,9 +18,9 @@ import modelo.Guerrero;
 import modelo.Mago;
 import modelo.Personaje;
 
-public class VistaCombate extends JFrame {
+public class VistaCombate extends JPanel {
 
-    private JEditorPane areaCombate;  // Usar JEditorPane en lugar de JTextArea
+    private JEditorPane areaCombate; // Usar JEditorPane en lugar de JTextArea
     private boolean victoria;
     private ControladorJuego controlador;
     private Personaje heroe;
@@ -29,23 +28,22 @@ public class VistaCombate extends JFrame {
 
     public VistaCombate(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
         this.heroe = heroe;
-        this.victoria = false;
-        if(criaturas.size()> 3){
-            combateFinal = true;
-        }
         this.controlador = controlador;
-        setTitle("Combate");
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.victoria = false;
+
+        if (criaturas.size() > 3) {
+            combateFinal = true; // Determina si es el combate final
+        }
+
+        // Configuración del panel
         setLayout(new BorderLayout());
 
         // Usamos JEditorPane que soporta HTML
         areaCombate = new JEditorPane();
-        areaCombate.setEditable(false);  // No editable por el usuario
-        areaCombate.setContentType("text/html");  // Establecemos el tipo de contenido a HTML
-        areaCombate.setFont(new Font("Monospaced", Font.PLAIN, 14));  // Puedes cambiar la fuente aquí
-        areaCombate.setText("");  // Limpiamos el área de texto inicial
+        areaCombate.setEditable(false); // No editable por el usuario
+        areaCombate.setContentType("text/html"); // Establecemos el tipo de contenido a HTML
+        areaCombate.setFont(new Font("Monospaced", Font.PLAIN, 14)); // Puedes cambiar la fuente aquí
+        areaCombate.setText(""); // Limpiamos el área de texto inicial
         JScrollPane scrollPane = new JScrollPane(areaCombate);
         add(scrollPane, BorderLayout.CENTER);
 
@@ -56,14 +54,17 @@ public class VistaCombate extends JFrame {
         Combate combate = new Combate(heroe, criaturas, true);
         String resultadoCombate = combate.iniciarCombate();
         victoria = combate.getVictoria();
-        
+
         // Establecer el texto HTML en el JEditorPane
         areaCombate.setText(resultadoCombate);
-        
+
         mostrarResultado();
     }
 
     private void mostrarResultado() {
+        JPanel panelBotones = new JPanel();
+
+        // Botón Continuar
         JButton continuarButton = new JButton("Continuar");
         continuarButton.addActionListener(e -> {
             if (!victoria) {
@@ -75,32 +76,41 @@ public class VistaCombate extends JFrame {
                     JOptionPane.INFORMATION_MESSAGE
                 );
                 if (controlador != null) {
-                    controlador.reiniciarJuego(); // Asegúrate de que controlador no es nulo
+                    controlador.reiniciarJuego(); // Reiniciar el juego
                 }
             } else {
                 areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
-                this.dispose();
                 heroe.subirNivel();
+                if (controlador != null) {
+                    controlador.mostrarMapa(); // Vuelve al mapa
+                }
             }
-            if(combateFinal){
+            if (combateFinal) {
                 String videoPath = "";
-                if (heroe instanceof Mago){
+                if (heroe instanceof Mago) {
                     videoPath = "file:///C:/re/mago.mp4";
-                }else if (heroe instanceof Arquero){
+                } else if (heroe instanceof Arquero) {
                     videoPath = "file:///C:/re/ar.mp4";
-                }else if (heroe instanceof Guerrero){
+                } else if (heroe instanceof Guerrero) {
                     videoPath = "file:///C:/re/gu.mp4";
                 }
                 VistaCinematica.getInstancia().mostrarCinematica(videoPath);
             }
         });
-        
-    
-        add(continuarButton, BorderLayout.SOUTH);
-        validate();
-    }    
 
+        // Botón Volver al Hub
+        JButton volverHubButton = new JButton("Volver al Hub");
+        volverHubButton.addActionListener(e -> controlador.cambiarVista(new VistaHub(controlador)));
+
+        panelBotones.add(continuarButton);
+        panelBotones.add(volverHubButton);
+        add(panelBotones, BorderLayout.SOUTH);
+
+        validate();
+    }
+
+    // Método para mostrar esta vista desde el controlador
     public static void mostrar(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
-        SwingUtilities.invokeLater(() -> new VistaCombate(controlador, heroe, criaturas).setVisible(true));
-    }    
+        controlador.cambiarVista(new VistaCombate(controlador, heroe, criaturas));
+    }
 }

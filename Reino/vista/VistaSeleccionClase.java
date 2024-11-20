@@ -6,17 +6,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VistaSeleccionClase extends JFrame {
-    private static VistaSeleccionClase instancia; // Instancia única de VistaSeleccionClase
+public class VistaSeleccionClase extends JPanel {
 
-    // Constructor privado para implementar el Singleton
-    private VistaSeleccionClase(ControladorJuego controlador, String nombreJugador) {
-        // Configuración de la ventana
-        setTitle("Selecciona tu Clase");
-        setSize(400, 200);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+    public VistaSeleccionClase(ControladorJuego controlador, String nombreJugador) {
+        setLayout(new BorderLayout()); // Usamos un diseño BorderLayout para organizar los componentes
 
         // Mensaje de bienvenida
         JLabel mensaje = new JLabel("Bienvenido, " + nombreJugador + ". Selecciona tu clase:", JLabel.CENTER);
@@ -36,7 +29,6 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Mago");
-                ocultarVentana();
             }
         });
 
@@ -44,7 +36,6 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Guerrero");
-                ocultarVentana();
             }
         });
 
@@ -52,31 +43,18 @@ public class VistaSeleccionClase extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.seleccionarPersonaje(nombreJugador, "Arquero");
-                ocultarVentana();
             }
         });
 
+        // Añadimos los botones al panel central
         panelBotones.add(botonMago);
         panelBotones.add(botonGuerrero);
         panelBotones.add(botonArquero);
         add(panelBotones, BorderLayout.CENTER);
     }
 
-    // Método estático para obtener la instancia única
-    public static VistaSeleccionClase getInstancia(ControladorJuego controlador, String nombreJugador) {
-        if (instancia == null) {
-            instancia = new VistaSeleccionClase(controlador, nombreJugador);  // Crear la instancia si no existe
-        }
-        return instancia;
-    }
-
-    // Método para mostrar la vista desde el controlador
+    // Método estático para mostrar esta vista
     public static void mostrar(ControladorJuego controlador, String nombreJugador) {
-        SwingUtilities.invokeLater(() -> getInstancia(controlador, nombreJugador).setVisible(true));
-    }
-
-    // Método para ocultar la ventana
-    private void ocultarVentana() {
-        this.dispose();
+        controlador.cambiarVista(new VistaSeleccionClase(controlador, nombreJugador));
     }
 }
