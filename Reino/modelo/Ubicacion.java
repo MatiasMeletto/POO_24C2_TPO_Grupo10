@@ -2,8 +2,8 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
-import java.lang.Runnable;
 
 import controlador.ControladorJuego;
 import vista.VistaCombate;
@@ -12,6 +12,7 @@ public class Ubicacion {
     private String nombre;
     private List<Criatura> criaturas;
     private boolean esNeutral;
+    private Objeto objeto;
     private List<Ubicacion> caminosPosibles;
     private Runnable eventoEspecial;
     
@@ -56,29 +57,33 @@ public class Ubicacion {
             }
             this.esNeutral = false;
         }else if (nombre.contains("Montaña Helada")) {
+            
             Criatura dragon = new Dragon();
             this.criaturas.add(dragon);
+            this.objeto = new Objeto("Espada de fuego", "Aumenta el nivel de ataque del heroe en 20%", this, criaturas);
             this.esNeutral = false;
+            this.eventoEspecial = (() -> {
+                JOptionPane.showMessageDialog(null, "¡Has encontrado la Espada de fuego!");
+            });
         } else if (nombre.contains("Pantano Oscuro")) {
             for (int i = 0; i < 5; i++) {
                 Criatura espectro = new Espectro();
                 this.criaturas.add(espectro);
             }
+            this.objeto = new Objeto("Arco de luz", "Aumenta el nivel de ataque del heroe en 25%", this, criaturas);
             this.esNeutral = false;
         } else if (nombre.contains("Aldea de los Sirith")) {
             for (int i = 0; i < 3; i++) {
                 Criatura troll = new Troll();
                 this.criaturas.add(troll);
             }
+            this.objeto = new Objeto("Escudo de titanio", "Aumenta la defensa en 30 puntos", this, criaturas);
             this.esNeutral = false;
         } else if (nombre.contains("Bosque de los Susurros")) {
             // Evento especial sin criaturas
+            this.objeto = new Objeto("Amuleto de proteccion", "Aumenta el nivel de defensa del heroe en %", this, criaturas);
             this.esNeutral = true; // Neutral porque solo hay un evento
         }
-    }
-    
-    public void setEventoEspecial(Runnable eventoEspecial) {
-        this.eventoEspecial = eventoEspecial;
     }
 
     public void agregarCamino(Ubicacion ubicacion) {
@@ -93,12 +98,17 @@ public class Ubicacion {
         return nombre;
     }
 
+    public void iniciarEvento(Personaje heroe){ //recordar agregar esto a Vista combate --------------------------------------------------------------------
+        if (eventoEspecial != null) {
+            eventoEspecial.run(); // Ejecutar el evento especial si está configurado.
+            this.objeto.Encontrado(heroe);
+        }
+    }
+
     private boolean combateRealizado = false; // Variable para controlar si el combate ya se realizó.
 
     public void crearCombate(Personaje heroe, ControladorJuego controlador) {
-        if (eventoEspecial != null) {
-            eventoEspecial.run(); // Ejecutar el evento especial si está configurado.
-        } else if (!esNeutral && !combateRealizado && controlador != null) {
+        if (!esNeutral && !combateRealizado && controlador != null) {
             VistaCombate.mostrar(controlador, heroe, criaturas); // Mostrar combate si no es neutral.
             combateRealizado = true; // Marcar el combate como realizado.
         } else if (esNeutral) {

@@ -11,6 +11,7 @@ public class Objeto {
     private Ubicacion ubicacion;
     private Personaje heroe;
     private List<Criatura> criaturas;
+    private boolean reclamable;
 
     public Objeto(String nombre, String descripcion, Ubicacion ubicacion, List<Criatura> criaturas){
         this.nombre = nombre;
@@ -20,7 +21,7 @@ public class Objeto {
     }
     public List<JLabel> obtenerLabels(){
         List<JLabel> aux = new ArrayList<>();
-        JLabel n = new JLabel("Nombre: " + nombre,JLabel.CENTER);
+        JLabel n = new JLabel(nombre,JLabel.CENTER);
         JLabel v = new JLabel("Se encuentra en: " + String.valueOf(ubicacion.getNombre()),JLabel.CENTER);
         JLabel a = new JLabel("Descrpcion: " + descripcion,JLabel.CENTER); 
         aux.add(n);
@@ -31,5 +32,12 @@ public class Objeto {
             aux.add(r);
         }       
         return aux;
+    }
+    public void Encontrado(){
+        this.reclamable = true;
+    }
+    public void Encontrado(Personaje heroe){
+        this.heroe = heroe;
+        heroe.ObjetoEncontrado(this);
     }
 }

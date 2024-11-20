@@ -13,6 +13,7 @@ public abstract class Personaje {
     protected int nivelAtaque;
     protected int nivelDefensa;
     protected int experiencia;
+    protected List<Objeto> objetos;
     
     public Personaje(String nombre, int puntosVida, int maxVida, int nivelAtaque, int nivelDefensa) {
         this.nombre = nombre;
@@ -21,12 +22,13 @@ public abstract class Personaje {
         this.nivelAtaque = nivelAtaque;
         this.nivelDefensa = nivelDefensa;
         this.experiencia = 0;  // Inicializamos la experiencia en 0
+        this.objetos = new ArrayList<>();
     }
 
-    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
+
     public List<JLabel> obtenerLabels(){
         List<JLabel> aux = new ArrayList<>();
         JLabel n = new JLabel("Nombre: "+nombre,JLabel.CENTER); // Asumiendo que `nombre` ya es un String
@@ -42,6 +44,9 @@ public abstract class Personaje {
         return aux;
     }
 
+    public void ObjetoEncontrado(Objeto o){
+        objetos.add(o);
+    }
     //Sistema de combate
     public abstract int recibirDanio(int danio, Criatura c) ;
 
