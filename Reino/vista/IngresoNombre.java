@@ -20,10 +20,10 @@ import controlador.ControladorJuego;
 
 public class IngresoNombre extends JPanel {
     private JTextField campoNombre;
-    private Image imagenFondo = new ImageIcon("C:/re/o.jpg").getImage();
+    private Image imagenFondo = new ImageIcon("C:/resources/imagenes/menuPrincipal.jpg").getImage();
 
     public IngresoNombre(ControladorJuego controlador) {
-        File archivo = new File("C:/re/o.jpg");
+        File archivo = new File("C:/resources/imagenes/menuPrincipal.jpg");
         if (!archivo.exists()) {
             System.err.println("El archivo de imagen no se encuentra en la ruta especificada.");
         }

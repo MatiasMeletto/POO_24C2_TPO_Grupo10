@@ -23,11 +23,11 @@ public class ControladorJuego {
     private ControladorJuego() {
         ventanaPrincipal = new JFrame("Reino de Uadengard");
         ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventanaPrincipal.setSize(800, 600); // Tamaño fijo de la ventana
-        ventanaPrincipal.setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        ventanaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ventanaPrincipal.setUndecorated(true);
+        ventanaPrincipal.setVisible(true);  
         ventanaPrincipal.setLayout(new BorderLayout()); // Usa BorderLayout para centrar el contenido
-        ventanaPrincipal.setVisible(true);
-
+        
     }
     public static ControladorJuego getInstancia() {
         if (instancia == null) {
@@ -44,13 +44,10 @@ public class ControladorJuego {
         ventanaPrincipal.repaint();
     
         // Forzar el tamaño de la ventana principal
-        ventanaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        ventanaPrincipal.setUndecorated(true);
-        ventanaPrincipal.setVisible(true);  
+
     }
     
     public void iniciarJuego() {
-        ventanaPrincipal.setSize(400, 150); // Tamaño reducido para ingresar el nombre
         cambiarVista(new IngresoNombre(this));
     }
 
@@ -76,7 +73,6 @@ public class ControladorJuego {
         if (mapa == null) {
             mapa = new Mapa(personaje, this); // Crea el mapa si no existe.
         }
-        ventanaPrincipal.setSize(1000, 1000); // Ajusta el tamaño para el mapa
         cambiarVista(new VistaMapa(this, mapa));
     }
 
@@ -89,7 +85,6 @@ public class ControladorJuego {
     }
 
     public void mostrarHub() {
-        ventanaPrincipal.setSize(400, 300); // Tamaño reducido para el hub
         cambiarVista(new VistaHub(this));
     }
 

@@ -9,6 +9,13 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "main.Main",
+            "projectName": "POO_24C2_TPO_Grupo10-7_bd1e6bb2"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.Main",
             "projectName": "POO_24C2_TPO_Grupo10-6_bd1e6bb1"
         },
         {
