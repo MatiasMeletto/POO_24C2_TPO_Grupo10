@@ -108,20 +108,24 @@ public class VistaMapa extends JPanel {
         botonesUbicaciones.put(ubicacion, botonUbicacion);
     }
 
-    private void actualizarVisibilidadUbicaciones() {
+    public void actualizarVisibilidadUbicaciones() {
         Ubicacion ubicacionActual = mapa.getUbicacionActual();
         List<Ubicacion> caminosDisponibles = ubicacionActual.getCaminosPosibles();
-
+    
+        // Deshabilitar todos los botones
         for (Map.Entry<Ubicacion, JButton> entry : botonesUbicaciones.entrySet()) {
-            entry.getValue().setEnabled(false);
+            entry.getValue().setEnabled(false); // Deshabilita todos los botones
         }
-
+    
+        // Habilitar solo los botones de los caminos disponibles
         for (Ubicacion ubicacion : caminosDisponibles) {
             JButton botonSiguiente = botonesUbicaciones.get(ubicacion);
             if (botonSiguiente != null) {
-                botonSiguiente.setEnabled(true);
+                botonSiguiente.setEnabled(true); // Habilita los botones accesibles
             }
         }
+        
+        titulo.setText("Ubicación actual: " + ubicacionActual.getNombre());
 
         panelMapa.revalidate();
         panelMapa.repaint();

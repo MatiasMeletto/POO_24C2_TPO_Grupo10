@@ -84,10 +84,13 @@ public class VistaCombate extends JPanel {
             } else {
                 areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
                 heroe.subirNivel();
+                ubicacion.iniciarEvento(heroe);
+
                 if (controlador != null) {
                     controlador.mostrarMapa(); // Vuelve al mapa
+                    controlador.actualizarMapaVista();
                 }
-                ubicacion.iniciarEvento(heroe);
+                
             }
             if (combateFinal) {
                 String videoPath = "";

@@ -114,6 +114,7 @@ public class Ubicacion {
         } else if (esNeutral) {
             heroe.restaurarVida(); // Restaurar vida en ubicaciones neutrales.
         }
-    }
-    
+        // Actualizar la vista del mapa después de cualquier acción
+        controlador.actualizarMapaVista();
+    }   
 }

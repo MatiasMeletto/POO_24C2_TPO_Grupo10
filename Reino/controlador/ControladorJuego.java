@@ -19,6 +19,7 @@ public class ControladorJuego {
     private JFrame ventanaPrincipal;
     private Personaje personaje;
     private Mapa mapa;
+    private VistaMapa vistaMapa;
 
     private ControladorJuego() {
         ventanaPrincipal = new JFrame("Reino de Uadengard");
@@ -28,26 +29,40 @@ public class ControladorJuego {
         ventanaPrincipal.setVisible(true);  
         ventanaPrincipal.setLayout(new BorderLayout()); // Usa BorderLayout para centrar el contenido
         
+        personaje = new Mago("Temporal");
+        mapa = new Mapa(personaje, this);
+        vistaMapa = new VistaMapa(this, mapa);
+
     }
+
     public static ControladorJuego getInstancia() {
         if (instancia == null) {
             instancia = new ControladorJuego();
         }
         return instancia;
     }
+
     public void cambiarVista(JPanel nuevaVista) {
-        ventanaPrincipal.getContentPane().removeAll(); // Limpia el contenido actual.
-        ventanaPrincipal.add(nuevaVista, BorderLayout.CENTER); // Añade la vista centrada.
-    
-        nuevaVista.setBounds(0, 0, ventanaPrincipal.getWidth(), ventanaPrincipal.getHeight()); 
+        if (nuevaVista == null) {
+            throw new IllegalArgumentException("La vista proporcionada no puede ser null");
+        }
+        if (nuevaVista instanceof VistaMapa) {
+            vistaMapa.setVisible(true); // Asegúrate de que sea visible
+        }
+        ventanaPrincipal.getContentPane().removeAll(); // Limpia el contenido actual
+        ventanaPrincipal.getContentPane().add(nuevaVista, BorderLayout.CENTER); // Añade la nueva vista
+        nuevaVista.setVisible(true); // Asegúrate de que sea visible
         ventanaPrincipal.revalidate();
         ventanaPrincipal.repaint();
-    
-        // Forzar el tamaño de la ventana principal
-
     }
     
     public void iniciarJuego() {
+        
+            // Asegúrate de reiniciar todo correctamente
+        personaje = null;
+        mapa = null;
+
+        // Inicia con la pantalla de ingreso de nombre
         cambiarVista(new IngresoNombre(this));
     }
 
@@ -65,19 +80,22 @@ public class ControladorJuego {
             default:
                 throw new IllegalArgumentException("Clase de personaje no válida: " + claseSeleccionada);
         }
-        iniciarMapa();
+        mapa = new Mapa(personaje, this);
+        vistaMapa = new VistaMapa(this, mapa); // Inicializa VistaMapa
         cambiarVista(new VistaHub(this)); // Muestra el hub
     }
 
     public void mostrarMapa() {
-        if (mapa == null) {
-            mapa = new Mapa(personaje, this); // Crea el mapa si no existe.
+        if (vistaMapa == null) {
+            vistaMapa = new VistaMapa(this, mapa); // Reasegura la inicialización si es null
         }
-        cambiarVista(new VistaMapa(this, mapa));
+        cambiarVista(vistaMapa); // Cambia a la vista del mapa
     }
 
-    public void iniciarMapa() {
-        mapa = new Mapa(personaje, this);
+    public void actualizarMapaVista() {
+        if (vistaMapa != null) {
+            vistaMapa.actualizarVisibilidadUbicaciones(); // Refresca las ubicaciones disponibles
+        }
     }
 
     public Mapa getMapa() {

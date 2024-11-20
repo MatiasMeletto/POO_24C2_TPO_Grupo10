@@ -146,10 +146,11 @@ public class Mapa {
         return ubicacionActual.getCaminosPosibles();
     }
 
-    public void avanzar(Ubicacion nuevaUbicacion, ControladorJuego controlador) {          
-        ubicacionActual = nuevaUbicacion;
-        nuevaUbicacion.crearCombate(heroe, controlador);
-    }    
+    public void avanzar(Ubicacion nuevaUbicacion, ControladorJuego controlador) {
+        ubicacionActual = nuevaUbicacion; // Actualiza la ubicación actual
+        nuevaUbicacion.crearCombate(heroe, controlador); // Inicia combate si corresponde
+        controlador.actualizarMapaVista(); // Notifica a la vista del mapa para actualizar los botones
+    }
 
     public Ubicacion getUbicacionActual() {
         return ubicacionActual;
