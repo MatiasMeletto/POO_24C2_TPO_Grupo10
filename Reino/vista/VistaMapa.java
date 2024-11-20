@@ -51,17 +51,26 @@ public class VistaMapa extends JFrame {
         if (primerBoton != null) {
             primerBoton.setEnabled(true); // Habilitar el primer botón
         }
-
-        // Botón para acceder al estado del personaje
-        JButton botonEstadoPersonaje = new JButton("Estado del Personaje");
-        botonEstadoPersonaje.addActionListener(e -> {
-            JDialog dialogoEstado = new JDialog(this, "Estado del Personaje", true);
-            dialogoEstado.setSize(400, 300);
-            dialogoEstado.setLocationRelativeTo(this);
-            dialogoEstado.add(new VistaEstadoPersonaje(controlador).getPanelEstado());
-            dialogoEstado.setVisible(true);
+        // Dentro del constructor de VistaMapa
+        JButton botonVolverHub = new JButton("Volver al Hub");
+        botonVolverHub.addActionListener(e -> {
+            this.dispose(); // Cierra la ventana actual del mapa.
+            VistaHub.mostrar(controlador); // Muestra el Hub.
         });
-        add(botonEstadoPersonaje, BorderLayout.SOUTH);
+        add(botonVolverHub, BorderLayout.SOUTH); // Coloca el botón en la parte inferior.
+        revalidate();
+        repaint();
+
+    //     // Botón para acceder al estado del personaje
+    //     JButton botonEstadoPersonaje = new JButton("Estado del Personaje");
+    //     botonEstadoPersonaje.addActionListener(e -> {
+    //         JDialog dialogoEstado = new JDialog(this, "Estado del Personaje", true);
+    //         dialogoEstado.setSize(400, 300);
+    //         dialogoEstado.setLocationRelativeTo(this);
+    //         dialogoEstado.add(new VistaEstadoPersonaje(controlador).getPanelEstado());
+    //         dialogoEstado.setVisible(true);
+    //     });
+    //     add(botonEstadoPersonaje, BorderLayout.SOUTH);
     }
 
     private void inicializarBotonesUbicaciones() {
