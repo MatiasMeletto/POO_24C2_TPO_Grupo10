@@ -9,6 +9,21 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "main.Main",
+            "projectName": "POO_24C2_TPO_Grupo10_abf08ec2"
+        },
+        {
+            "type": "java",
+            "name": "JavaFX",
+            "request": "launch",
+            "mainClass": "Reino.main.Main",
+            "vmArgs": "--module-path C:/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.swing,javafx.media",
+            "projectName": "POO_24C2_TPO_Grupo10_abf08ec2"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.Main",
             "projectName": "POO_24C2_TPO_Grupo10-7_bd1e6bb2"
         },
         {
@@ -36,7 +51,7 @@
             "name": "JavaFX",
             "request": "launch",
             "mainClass": "Reino.main.Main",
-            "vmArgs": "--module-path C:/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path C:/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.swing,javafx.media",
             "projectName": "POO_24C2_TPO_Grupo10_f6e17814"
         }
     ]

@@ -2,7 +2,6 @@ package  modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JLabel;
 
 public class Objeto {
@@ -37,6 +36,9 @@ public class Objeto {
         this.reclamable = true;
     }
     public boolean Reclamable(){
+        if(heroe != null){
+            return true;
+        }
         return reclamable;
     }
     public void Reclamado(Personaje heroe){
