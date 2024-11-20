@@ -1,13 +1,18 @@
 package vista;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,71 +24,116 @@ import controlador.ControladorJuego;
 
 public class IngresoNombre extends JPanel {
     private JTextField campoNombre;
-    private Image imagenFondo = new ImageIcon("C:/re/o.jpg").getImage();
+    private Image imagenFondo = new ImageIcon("C:/re/o.jpg").getImage(); // Ruta de la imagen de fondo
 
     public IngresoNombre(ControladorJuego controlador) {
         // Configuración del layout principal
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
-    
-        // Título de bienvenida
-        JLabel titulo = new JLabel("Bienvenido al Reino Encantado", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 16));
-        gbc.gridx = 0; // Columna 0
-        gbc.gridy = 0; // Fila 0
-        gbc.gridwidth = 2; // Ocupa dos columnas
-        gbc.anchor = GridBagConstraints.CENTER; // Centrado
-        add(titulo, gbc);
-    
+
         // Etiqueta y campo de texto
-        JLabel etiquetaNombre = new JLabel("Ingrese su nombre: ");
-        gbc.gridx = 0; // Columna 0
-        gbc.gridy = 1; // Fila 1
-        gbc.gridwidth = 1; // Ocupa una columna
-        gbc.anchor = GridBagConstraints.EAST; // Alineado a la derecha
+        JLabel etiquetaNombre = new JLabel("Ingrese su nombre:");
+        etiquetaNombre.setFont(new Font("Arial", Font.PLAIN, 18));
+        etiquetaNombre.setForeground(Color.WHITE); // Texto blanco para destacar
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
         add(etiquetaNombre, gbc);
-    
+
         campoNombre = new JTextField(20);
-        gbc.gridx = 1; // Columna 1
-        gbc.gridy = 1; // Fila 1
-        gbc.anchor = GridBagConstraints.WEST; // Alineado a la izquierda
+        campoNombre.setFont(new Font("Arial", Font.PLAIN, 16));
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         add(campoNombre, gbc);
-    
-        // Botones
-        JPanel panelBotones = new JPanel(new FlowLayout());
-        JButton botonAceptar = new JButton("Aceptar");
-        JButton botonCancelar = new JButton("Cancelar");
-    
+
+        // Panel para los botones
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        panelBotones.setOpaque(false); // Fondo transparente para combinar con la imagen de fondo
+
+        JButton botonAceptar = crearBoton("Aceptar", new Color(46, 139, 87)); // Verde
         botonAceptar.addActionListener(e -> {
             String nombre = campoNombre.getText().trim();
             if (!nombre.isEmpty()) {
                 controlador.cambiarVista(new VistaSeleccionClase(controlador, nombre));
             } else {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese su nombre.");
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese su nombre.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
         });
-    
+
+        JButton botonCancelar = crearBoton("Cancelar", new Color(178, 34, 34)); // Rojo
         botonCancelar.addActionListener(e -> System.exit(0));
-    
+
         panelBotones.add(botonAceptar);
         panelBotones.add(botonCancelar);
-    
-        gbc.gridx = 0; // Columna 0
-        gbc.gridy = 2; // Fila 2
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         gbc.gridwidth = 2; // Ocupa dos columnas
-        gbc.anchor = GridBagConstraints.CENTER; // Centrado
+        gbc.anchor = GridBagConstraints.CENTER;
         add(panelBotones, gbc);
-    }    
-    
+    }
+
+    /**
+     * Método para crear un botón estilizado.
+     * @param texto Texto del botón.
+     * @param color Fondo del botón.
+     * @return JButton estilizado.
+     */
+    private JButton crearBoton(String texto, Color color) {
+        JButton boton = new JButton(texto);
+        boton.setFont(new Font("Arial", Font.BOLD, 16));
+        boton.setBackground(color);
+        boton.setForeground(Color.WHITE);
+        boton.setFocusPainted(false); // Elimina el borde de enfoque
+        boton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        // Espacio para agregar imágenes al botón (opcional)
+        // boton.setIcon(new ImageIcon("ruta/a/imagen.png"));
+        
+        return boton;
+    }
+
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (imagenFondo != null) {
-            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
-        } else {
-            System.err.println("La imagen de fondo no se pudo cargar.");
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    
+    // Dibuja la imagen de fondo
+    if (imagenFondo != null) {
+        g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+    } else {
+        System.err.println("La imagen de fondo no se pudo cargar.");
+    }
+
+    // Configuración para el texto con contorno
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Suavizado
+
+    // Texto con contorno
+    String texto = "¡Bienvenido al Reino Encantado!";
+    Font fuente = new Font("Serif", Font.BOLD, 36); // Fuente del texto
+    g2d.setFont(fuente);
+
+    // Coordenadas donde se dibuja el texto
+    int x = getWidth() / 2 - g2d.getFontMetrics().stringWidth(texto) / 2;
+    int y = 100;
+
+    // Color del contorno
+    g2d.setColor(Color.BLACK);
+    for (int i = -2; i <= 2; i++) {
+        for (int j = -2; j <= 2; j++) {
+            if (i != 0 || j != 0) {
+                g2d.drawString(texto, x + i, y + j); // Dibuja el contorno desplazado
+            }
         }
     }
+
+    // Color del texto principal
+    g2d.setColor(Color.WHITE);
+    g2d.drawString(texto, x, y); // Dibuja el texto principal encima
 }
 
+}

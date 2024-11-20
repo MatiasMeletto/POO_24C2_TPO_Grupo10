@@ -81,8 +81,11 @@ public class Ubicacion {
             this.esNeutral = false;
         } else if (nombre.contains("Bosque de los Susurros")) {
             // Evento especial sin criaturas
-            this.objeto = new Objeto("Amuleto de proteccion", "Aumenta el nivel de defensa del heroe en %", this, criaturas);
+            this.objeto = new Objeto("Amuleto de proteccion", "Aumenta el nivel de defensa del heroe en 15%", this, criaturas);
             this.esNeutral = true; // Neutral porque solo hay un evento
+        }
+        if (this.objeto != null){
+            Misiones.getInstancia(objeto);
         }
     }
 

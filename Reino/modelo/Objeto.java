@@ -28,7 +28,7 @@ public class Objeto {
         aux.add(v);
         aux.add(a);
         if (!criaturas.isEmpty()){
-            JLabel r = new JLabel("Custodiado por: " + String.valueOf(criaturas.size()) + criaturas.get(0).getClass().getName(),JLabel.CENTER);
+            JLabel r = new JLabel("Custodiado por: " + String.valueOf(criaturas.size()) + criaturas.get(0).getClass().getSimpleName(),JLabel.CENTER);
             aux.add(r);
         }       
         return aux;

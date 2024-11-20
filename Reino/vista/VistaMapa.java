@@ -24,17 +24,21 @@ public class VistaMapa extends JPanel {
         this.mapa = mapa;
         this.botonesUbicaciones = new HashMap<>();
 
-        // Configuración del panel
+        // Configuración del panel principal
         setLayout(new BorderLayout());
+        setBackground(new Color(255, 255, 255)); // Fondo blanco claro
 
         // Título que muestra la ubicación actual
         titulo = new JLabel("Mapa del Reino de Uadengard", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 16));
+        titulo.setFont(new Font("Serif", Font.BOLD, 24));
+        titulo.setForeground(new Color(0, 102, 204)); // Color azul claro
         add(titulo, BorderLayout.NORTH);
 
-        // Panel para mostrar el mapa en una cuadrícula de 20 filas y 3 columnas
+        // Panel para mostrar el mapa en una cuadrícula
         panelMapa = new JPanel();
-        panelMapa.setLayout(new GridLayout(20, 3, 10, 10));
+        panelMapa.setLayout(new GridLayout(20, 3, 10, 10)); // Estructura de 20 filas por 3 columnas
+        panelMapa.setBackground(new Color(240, 240, 240)); // Fondo gris claro
+        panelMapa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Margen interno
         add(panelMapa, BorderLayout.CENTER);
 
         // Crear los botones y añadirlos en la disposición deseada
@@ -49,6 +53,11 @@ public class VistaMapa extends JPanel {
 
         // Botón para volver al Hub
         JButton botonVolverHub = new JButton("Volver al Hub");
+        botonVolverHub.setFont(new Font("Arial", Font.PLAIN, 16));
+        botonVolverHub.setBackground(new Color(102, 204, 102)); // Fondo verde claro
+        botonVolverHub.setForeground(Color.WHITE);
+        botonVolverHub.setFocusPainted(false);
+        botonVolverHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
         botonVolverHub.addActionListener(e -> controlador.cambiarVista(new VistaHub(controlador)));
         add(botonVolverHub, BorderLayout.SOUTH);
     }
@@ -59,7 +68,7 @@ public class VistaMapa extends JPanel {
             panelMapa.add(new JLabel(""));
         }
 
-        // Añadir botones de ubicaciones en las posiciones específicas de acuerdo con las bifurcaciones
+        // Añadir botones de ubicaciones en las posiciones específicas
         agregarBotonUbicacion(mapa.getUbicaciones().get(0), 0, 1);   // Entrada del Reino
         agregarBotonUbicacion(mapa.getUbicaciones().get(1), 1, 1);   // Camino del Bosque
         agregarBotonUbicacion(mapa.getUbicaciones().get(2), 2, 1);   // Bosque Encantado
@@ -95,11 +104,16 @@ public class VistaMapa extends JPanel {
     private void agregarBotonUbicacion(Ubicacion ubicacion, int fila, int columna) {
         JButton botonUbicacion = new JButton(ubicacion.getNombre());
         botonUbicacion.setEnabled(false);
+        botonUbicacion.setFont(new Font("Arial", Font.BOLD, 12)); // Fuente de texto en negrita
+        botonUbicacion.setBackground(new Color(173, 216, 230)); // Fondo azul claro
+        botonUbicacion.setForeground(Color.BLACK); // Texto negro
+        botonUbicacion.setFocusPainted(false); // Sin borde cuando se selecciona
+        botonUbicacion.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cambio de cursor al pasar por encima
 
         botonUbicacion.addActionListener(e -> {
             mapa.avanzar(ubicacion, controlador);
-            botonUbicacion.setEnabled(false);
-            actualizarVisibilidadUbicaciones();
+            botonUbicacion.setEnabled(false); // Deshabilita el botón al hacer clic
+            actualizarVisibilidadUbicaciones(); // Actualiza los caminos disponibles
         });
 
         int posicion = fila * 3 + columna;
@@ -111,12 +125,12 @@ public class VistaMapa extends JPanel {
     public void actualizarVisibilidadUbicaciones() {
         Ubicacion ubicacionActual = mapa.getUbicacionActual();
         List<Ubicacion> caminosDisponibles = ubicacionActual.getCaminosPosibles();
-    
+
         // Deshabilitar todos los botones
         for (Map.Entry<Ubicacion, JButton> entry : botonesUbicaciones.entrySet()) {
-            entry.getValue().setEnabled(false); // Deshabilita todos los botones
+            entry.getValue().setEnabled(false); // Deshabilitar todos los botones
         }
-    
+
         // Habilitar solo los botones de los caminos disponibles
         for (Ubicacion ubicacion : caminosDisponibles) {
             JButton botonSiguiente = botonesUbicaciones.get(ubicacion);
@@ -124,7 +138,7 @@ public class VistaMapa extends JPanel {
                 botonSiguiente.setEnabled(true); // Habilita los botones accesibles
             }
         }
-        
+
         titulo.setText("Ubicación actual: " + ubicacionActual.getNombre());
 
         panelMapa.revalidate();

@@ -14,6 +14,7 @@ import controlador.ControladorJuego;
 import modelo.Arquero;
 import modelo.Combate;
 import modelo.Criatura;
+import modelo.Dragon;
 import modelo.Guerrero;
 import modelo.Mago;
 import modelo.Personaje;
@@ -34,7 +35,7 @@ public class VistaCombate extends JPanel {
         this.victoria = false;
         this.ubicacion = u;
 
-        if (criaturas.size() > 3) {
+        if (criaturas.size() == 4 && criaturas.get(0) instanceof Dragon) {
             combateFinal = true; // Determina si es el combate final
         }
 
