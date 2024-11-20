@@ -105,12 +105,12 @@ public class Ubicacion {
         }
     }
 
-    private boolean combateRealizado = false; // Variable para controlar si el combate ya se realizó.
+    private boolean combateRealizado = false;// Variable para controlar si el combate ya se realizó.
 
     public void crearCombate(Personaje heroe, ControladorJuego controlador) {
         if (!esNeutral && !combateRealizado && controlador != null) {
-            VistaCombate.mostrar(controlador, heroe, criaturas); // Mostrar combate si no es neutral.
-            combateRealizado = true; // Marcar el combate como realizado.
+            combateRealizado = true;
+            VistaCombate.mostrar(controlador, heroe, criaturas); 
         } else if (esNeutral) {
             heroe.restaurarVida(); // Restaurar vida en ubicaciones neutrales.
         }
