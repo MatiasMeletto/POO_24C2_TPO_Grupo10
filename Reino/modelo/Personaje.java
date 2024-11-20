@@ -59,14 +59,18 @@ public abstract class Personaje {
     public void ganarExperiencia(int experiencia) {
         this.experiencia += experiencia;
     }
-    
+    public int cantidadDeNiveles(){
+
+        return (int)(experiencia / 100);
+    }
+
     public void subirNivel() {
         if (this.experiencia > 100) {
             this.experiencia = experiencia - 100;
     
             // Mensaje principal
-            String mensaje = "¡Felicidades, " + nombre + "!\nHas subido de nivel.\n" +
-                             "Elige una mejora:";
+            String mensaje = "¡Mejoras restantes: " + (cantidadDeNiveles() + 1) + "!" +
+                             "  Elige una mejora:";
     
             String[] opciones = {"Vida", "Defensa", "Ataque"};
     
@@ -129,5 +133,7 @@ public abstract class Personaje {
         return objetos;
     }
     // Método abstracto para restaurar la vida, cada clase puede definir su propio comportamiento
-    public abstract void restaurarVida();
+    public void restaurarVida(){
+        puntosVida = maxVida;
+    }
 }

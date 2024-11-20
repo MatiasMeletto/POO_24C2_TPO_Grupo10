@@ -130,6 +130,10 @@ public class Ubicacion {
             VistaCombate.mostrar(controlador, heroe, criaturas,this); 
         } else if (esNeutral) {
             heroe.restaurarVida(); // Restaurar vida en ubicaciones neutrales.
+            for (int i = heroe.cantidadDeNiveles(); i > 0; i--) {
+                heroe.subirNivel();
+            }
+            
         }
         // Actualizar la vista del mapa después de cualquier acción
         controlador.actualizarMapaVista();

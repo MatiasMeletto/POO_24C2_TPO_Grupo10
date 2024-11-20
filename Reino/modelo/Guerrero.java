@@ -31,11 +31,6 @@ public class Guerrero extends Personaje {
         return nivelAtaque;
     }
 
-    @Override
-    public void restaurarVida() {
-        puntosVida += (int)(maxVida * 0.20);
-    }
-
     public void iniciarNuevoCombate(){
         contadorGolpes = 0;
     }

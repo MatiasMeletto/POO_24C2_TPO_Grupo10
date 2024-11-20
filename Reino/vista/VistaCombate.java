@@ -84,7 +84,6 @@ public class VistaCombate extends JPanel {
                 }
             } else {
                 areaCombate.setText(areaCombate.getText() + "<br>¡Has ganado el combate! Felicitaciones.");
-                heroe.subirNivel();
                 ubicacion.iniciarEvento(heroe);
 
                 if (controlador != null) {
@@ -94,15 +93,22 @@ public class VistaCombate extends JPanel {
                 
             }
             if (combateFinal) {
-                String videoPath = "";
-                if (heroe instanceof Mago) {
-                    videoPath = "file:///C:/re/mago.mp4";
-                } else if (heroe instanceof Arquero) {
-                    videoPath = "file:///C:/re/ar.mp4";
-                } else if (heroe instanceof Guerrero) {
-                    videoPath = "file:///C:/re/gu.mp4";
-                }
-                VistaCinematica.getInstancia().mostrarCinematica(videoPath);
+                //String videoPath = "";
+                //if (heroe instanceof Mago) {
+                //    videoPath = "file:///C:/re/mago.mp4";
+                //} else if (heroe instanceof Arquero) {
+                //   videoPath = "file:///C:/re/ar.mp4";
+                //} else if (heroe instanceof Guerrero) {
+                //    videoPath = "file:///C:/re/gu.mp4";
+                //}
+                //VistaCinematica.getInstancia().mostrarCinematica(videoPath);
+                JOptionPane.showMessageDialog(
+                this,
+                "<html><h2 style='color:green;'>¡Felicidades!</h2><p>Has completado el juego. Gracias por jugar.</p></html>",
+                "Juego Completado",
+                JOptionPane.INFORMATION_MESSAGE
+                );
+                ControladorJuego.getInstancia().reiniciarJuego();
             }
         });
 

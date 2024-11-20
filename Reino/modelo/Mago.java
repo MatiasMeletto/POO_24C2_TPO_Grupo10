@@ -21,9 +21,4 @@ public class Mago extends Personaje {
     public int hacerDanio(Criatura c) {
         return nivelAtaque;
     }
-
-    @Override
-    public void restaurarVida() {
-        this.puntosVida = maxVida;  // Cura al 100% al final de cada combate
-    }
 }

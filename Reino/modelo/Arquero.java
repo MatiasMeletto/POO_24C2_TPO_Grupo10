@@ -34,8 +34,4 @@ public class Arquero extends Personaje {
         return 0;
     }
 
-    @Override
-    public void restaurarVida() {
-        puntosVida += (int)(maxVida * 0.40);
-    }
 }
