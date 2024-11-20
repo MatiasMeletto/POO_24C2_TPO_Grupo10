@@ -1,15 +1,41 @@
 package controlador;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 import modelo.*;
 import vista.*;
-import java.awt.Frame;
 
 public class ControladorJuego {
+    private JFrame ventanaPrincipal;
     private Personaje personaje;
     private Mapa mapa;
 
     public ControladorJuego() {
-        // El mapa se inicializa después de seleccionar el personaje
+        ventanaPrincipal = new JFrame("Reino de Uadengard");
+        ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventanaPrincipal.setSize(800, 600); // Tamaño fijo de la ventana
+        ventanaPrincipal.setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        ventanaPrincipal.setLayout(new BorderLayout()); // Usa BorderLayout para centrar el contenido
+        ventanaPrincipal.setVisible(true);
+    }
+
+    public void cambiarVista(JPanel nuevaVista) {
+        ventanaPrincipal.getContentPane().removeAll(); // Limpia el contenido actual.
+        ventanaPrincipal.add(nuevaVista, BorderLayout.CENTER); // Añade la vista centrada.
+    
+        nuevaVista.setBounds(0, 0, ventanaPrincipal.getWidth(), ventanaPrincipal.getHeight()); // Ajusta el tamaño.
+        ventanaPrincipal.revalidate();
+        ventanaPrincipal.repaint();
+    
+        // Forzar el tamaño de la ventana principal
+        ventanaPrincipal.setSize(1000, 900); // Tamaño constante definido
+        ventanaPrincipal.setLocationRelativeTo(null); // Recentrar la ventana
+    }
+    
+    public void iniciarJuego() {
+        ventanaPrincipal.setSize(400, 150); // Tamaño reducido para ingresar el nombre
+        cambiarVista(new IngresoNombre(this));
     }
 
     public void seleccionarPersonaje(String nombre, String claseSeleccionada) {
@@ -26,49 +52,38 @@ public class ControladorJuego {
             default:
                 throw new IllegalArgumentException("Clase de personaje no válida: " + claseSeleccionada);
         }
-        VistaHub.mostrar(this);
         iniciarMapa();
-    }
-
-    public Mapa getMapa() {
-        return mapa;
-    }
-
-    public void iniciarMapa() {
-        mapa = new Mapa(personaje, this); // Se pasa el controlador al mapa
-    }
-      
-    public Personaje getPersonaje() {
-        return personaje;
+        cambiarVista(new VistaHub(this)); // Muestra el hub
     }
 
     public void mostrarMapa() {
         if (mapa == null) {
             mapa = new Mapa(personaje, this); // Crea el mapa si no existe.
         }
-        VistaMapa.mostrar(this, mapa); // Muestra la vista del mapa.
+        ventanaPrincipal.setSize(1000, 1000); // Ajusta el tamaño para el mapa
+        cambiarVista(new VistaMapa(this, mapa));
+    }
+
+    public void iniciarMapa() {
+        mapa = new Mapa(personaje, this);
+    }
+
+    public Mapa getMapa() {
+        return mapa;
+    }
+
+    public void mostrarHub() {
+        ventanaPrincipal.setSize(400, 300); // Tamaño reducido para el hub
+        cambiarVista(new VistaHub(this));
+    }
+
+    public Personaje getPersonaje() {
+        return personaje;
     }
 
     public void reiniciarJuego() {
-        // Eliminar referencias estáticas de VistaMapa
-        VistaMapa.getInstancia(null, null).derrotado(); // Llama a derrotado() para liberar recursos
-        
-        // Reiniciar referencias de juego
         personaje = null;
         mapa = null;
-    
-        // Cerrar todas las ventanas activas
-        Frame[] frames = Frame.getFrames();
-        for (Frame frame : frames) {
-            frame.dispose();
-        }
-    
-        // Mostrar la pantalla de ingreso de nombre nuevamente
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            IngresoNombre ingresoNombre = new IngresoNombre(this);
-            ingresoNombre.setVisible(true);
-        });
+        cambiarVista(new IngresoNombre(this));
     }
-    
-    
 }

@@ -2,72 +2,65 @@ package vista;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import controlador.ControladorJuego;
 
-public class IngresoNombre extends JFrame {
-
+public class IngresoNombre extends JPanel {
     private JTextField campoNombre;
-    private JButton botonAceptar;
-    private JButton botonCancelar;
-    //private ControladorJuego controlador;
 
     public IngresoNombre(ControladorJuego controlador) {
-        //this.controlador = controlador;
-
-        // Configuración de la ventana
-        setTitle("Bienvenido al Reino Encantado");
-        setSize(400, 150);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
+        // Configuración del layout principal
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
+    
         // Título de bienvenida
         JLabel titulo = new JLabel("Bienvenido al Reino Encantado", JLabel.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 16));
-        add(titulo, BorderLayout.NORTH);
-
-        // Panel central para el campo de texto
-        JPanel panelCentral = new JPanel();
-        panelCentral.setLayout(new FlowLayout());
+        gbc.gridx = 0; // Columna 0
+        gbc.gridy = 0; // Fila 0
+        gbc.gridwidth = 2; // Ocupa dos columnas
+        gbc.anchor = GridBagConstraints.CENTER; // Centrado
+        add(titulo, gbc);
+    
+        // Etiqueta y campo de texto
         JLabel etiquetaNombre = new JLabel("Ingrese su nombre: ");
+        gbc.gridx = 0; // Columna 0
+        gbc.gridy = 1; // Fila 1
+        gbc.gridwidth = 1; // Ocupa una columna
+        gbc.anchor = GridBagConstraints.EAST; // Alineado a la derecha
+        add(etiquetaNombre, gbc);
+    
         campoNombre = new JTextField(20);
-        panelCentral.add(etiquetaNombre);
-        panelCentral.add(campoNombre);
-        add(panelCentral, BorderLayout.CENTER);
-
-        // Panel inferior para los botones
-        JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new FlowLayout());
-        botonAceptar = new JButton("Aceptar");
-        botonCancelar = new JButton("Cancelar");
-
-        // Acciones de los botones
-        botonAceptar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombre = campoNombre.getText().trim();
-                if (!nombre.isEmpty()) {
-                    dispose();  // Cierra esta ventana
-                    VistaSeleccionClase.mostrar(controlador, nombre);  // Abre la ventana de selección de clase
-                } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese su nombre.");
-                }
+        gbc.gridx = 1; // Columna 1
+        gbc.gridy = 1; // Fila 1
+        gbc.anchor = GridBagConstraints.WEST; // Alineado a la izquierda
+        add(campoNombre, gbc);
+    
+        // Botones
+        JPanel panelBotones = new JPanel(new FlowLayout());
+        JButton botonAceptar = new JButton("Aceptar");
+        JButton botonCancelar = new JButton("Cancelar");
+    
+        botonAceptar.addActionListener(e -> {
+            String nombre = campoNombre.getText().trim();
+            if (!nombre.isEmpty()) {
+                controlador.cambiarVista(new VistaSeleccionClase(controlador, nombre));
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese su nombre.");
             }
         });
-
-        botonCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Salir del juego
-                System.exit(0);
-            }
-        });
-
+    
+        botonCancelar.addActionListener(e -> System.exit(0));
+    
         panelBotones.add(botonAceptar);
         panelBotones.add(botonCancelar);
-        add(panelBotones, BorderLayout.SOUTH);
-    }
+    
+        gbc.gridx = 0; // Columna 0
+        gbc.gridy = 2; // Fila 2
+        gbc.gridwidth = 2; // Ocupa dos columnas
+        gbc.anchor = GridBagConstraints.CENTER; // Centrado
+        add(panelBotones, gbc);
+    }    
 }
 

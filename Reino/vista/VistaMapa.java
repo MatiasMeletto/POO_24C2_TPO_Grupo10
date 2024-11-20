@@ -4,32 +4,27 @@ import controlador.ControladorJuego;
 import modelo.Mapa;
 import modelo.Ubicacion;
 
-import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class VistaMapa extends JFrame {
+public class VistaMapa extends JPanel {
 
-    private static VistaMapa instancia;  // Instancia única de VistaMapa
     private Mapa mapa;
     private JLabel titulo;
     private JPanel panelMapa;
     private Map<Ubicacion, JButton> botonesUbicaciones;
     private ControladorJuego controlador;
 
-    // Constructor privado para implementar el Singleton
-    private VistaMapa(ControladorJuego controlador, Mapa mapa) {
+    // Constructor
+    public VistaMapa(ControladorJuego controlador, Mapa mapa) {
         this.controlador = controlador;
         this.mapa = mapa;
         this.botonesUbicaciones = new HashMap<>();
 
-        // Configuración de la ventana
-        setTitle("Mapa del Reino de Uadengard");
-        setSize(800, 1000);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Configuración del panel
         setLayout(new BorderLayout());
 
         // Título que muestra la ubicación actual
@@ -51,27 +46,11 @@ public class VistaMapa extends JFrame {
         if (primerBoton != null) {
             primerBoton.setEnabled(true); // Habilitar el primer botón
         }
-        // Vuelvo al hub
-        JButton botonVolverHub = new JButton("Volver al Hub");
-        botonVolverHub.addActionListener(e -> {
-            this.dispose(); // Cierra la ventana actual del mapa.
-            VistaHub.mostrar(controlador); // Muestra el Hub.
-        });
-        add(botonVolverHub, BorderLayout.SOUTH); // Coloca el botón en la parte inferior.
-        
-        revalidate();
-        repaint();
 
-    //     // Botón para acceder al estado del personaje
-    //     JButton botonEstadoPersonaje = new JButton("Estado del Personaje");
-    //     botonEstadoPersonaje.addActionListener(e -> {
-    //         JDialog dialogoEstado = new JDialog(this, "Estado del Personaje", true);
-    //         dialogoEstado.setSize(400, 300);
-    //         dialogoEstado.setLocationRelativeTo(this);
-    //         dialogoEstado.add(new VistaEstadoPersonaje(controlador).getPanelEstado());
-    //         dialogoEstado.setVisible(true);
-    //     });
-    //     add(botonEstadoPersonaje, BorderLayout.SOUTH);
+        // Botón para volver al Hub
+        JButton botonVolverHub = new JButton("Volver al Hub");
+        botonVolverHub.addActionListener(e -> controlador.cambiarVista(new VistaHub(controlador)));
+        add(botonVolverHub, BorderLayout.SOUTH);
     }
 
     private void inicializarBotonesUbicaciones() {
@@ -101,11 +80,10 @@ public class VistaMapa extends JFrame {
         agregarBotonUbicacion(mapa.getUbicaciones().get(17), 13, 0); // Foso Profundo (bifurcación izquierda)
         agregarBotonUbicacion(mapa.getUbicaciones().get(18), 13, 2); // Cueva de los Tesoros (bifurcación derecha)
         agregarBotonUbicacion(mapa.getUbicaciones().get(19), 14, 1); // Trono del Rey Olvidado
-        // Actualización en inicializarBotonesUbicaciones para las nuevas ubicaciones
         agregarBotonUbicacion(mapa.getUbicaciones().get(20), 15, 1); // Bosque Profundo
         agregarBotonUbicacion(mapa.getUbicaciones().get(21), 16, 1); // Altar Sagrado
-        agregarBotonUbicacion(mapa.getUbicaciones().get(22), 17, 0); // Colina Brumosa (bifurcacion izquierda)
-        agregarBotonUbicacion(mapa.getUbicaciones().get(23), 17, 2); // Desierto Sombrío (bifurcacion derecha)
+        agregarBotonUbicacion(mapa.getUbicaciones().get(22), 17, 0); // Colina Brumosa (bifurcación izquierda)
+        agregarBotonUbicacion(mapa.getUbicaciones().get(23), 17, 2); // Desierto Sombrío (bifurcación derecha)
         agregarBotonUbicacion(mapa.getUbicaciones().get(24), 18, 1); // Cascada Silenciosa
         agregarBotonUbicacion(mapa.getUbicaciones().get(25), 19, 1); // Torre Espectral
 
@@ -113,18 +91,17 @@ public class VistaMapa extends JFrame {
         panelMapa.revalidate();
         panelMapa.repaint();
     }
-    
+
     private void agregarBotonUbicacion(Ubicacion ubicacion, int fila, int columna) {
         JButton botonUbicacion = new JButton(ubicacion.getNombre());
-        botonUbicacion.setEnabled(false); // Deshabilitado hasta que sea alcanzable
+        botonUbicacion.setEnabled(false);
 
-        botonUbicacion.addActionListener(e -> {    
-            mapa.avanzar(ubicacion, controlador); // Pasar el controlador aquí
+        botonUbicacion.addActionListener(e -> {
+            mapa.avanzar(ubicacion, controlador);
             botonUbicacion.setEnabled(false);
             actualizarVisibilidadUbicaciones();
         });
 
-        // Añadir el botón al panel y al mapa de botones
         int posicion = fila * 3 + columna;
         panelMapa.remove(posicion);
         panelMapa.add(botonUbicacion, posicion);
@@ -135,12 +112,10 @@ public class VistaMapa extends JFrame {
         Ubicacion ubicacionActual = mapa.getUbicacionActual();
         List<Ubicacion> caminosDisponibles = ubicacionActual.getCaminosPosibles();
 
-        // Deshabilitar todos los botones
         for (Map.Entry<Ubicacion, JButton> entry : botonesUbicaciones.entrySet()) {
             entry.getValue().setEnabled(false);
         }
 
-        // Habilitar solo los botones de los próximos caminos accesibles
         for (Ubicacion ubicacion : caminosDisponibles) {
             JButton botonSiguiente = botonesUbicaciones.get(ubicacion);
             if (botonSiguiente != null) {
@@ -150,22 +125,5 @@ public class VistaMapa extends JFrame {
 
         panelMapa.revalidate();
         panelMapa.repaint();
-    }
-
-    public void derrotado() {
-        instancia = null;  // Elimina la referencia estática para permitir crear una nueva instancia
-        this.dispose();    // Cierra la ventana actual
-    }
-    
-    public static VistaMapa getInstancia(ControladorJuego controlador, Mapa mapa) {
-        if (instancia == null || !instancia.isVisible()) { // Verifica si la instancia es nula o está cerrada
-            instancia = new VistaMapa(controlador, mapa);
-        }
-        return instancia;  // Devuelve la nueva instancia o la existente si es válida
-    }
-
-    // Método para mostrar esta vista desde el controlador
-    public static void mostrar(ControladorJuego controlador, Mapa mapa) {
-        SwingUtilities.invokeLater(() -> getInstancia(controlador, mapa).setVisible(true));
     }
 }
