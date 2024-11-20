@@ -35,7 +35,7 @@ public class IngresoNombre extends JPanel {
         // Etiqueta y campo de texto
         JLabel etiquetaNombre = new JLabel("Ingrese su nombre:");
         etiquetaNombre.setFont(new Font("Arial", Font.PLAIN, 18));
-        etiquetaNombre.setForeground(Color.WHITE); // Texto blanco para destacar
+        etiquetaNombre.setForeground(Color.BLACK); // Texto blanco para destacar
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;

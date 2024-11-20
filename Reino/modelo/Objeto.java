@@ -28,7 +28,7 @@ public class Objeto {
         aux.add(v);
         aux.add(a);
         if (!criaturas.isEmpty()){
-            JLabel r = new JLabel("Custodiado por: " + String.valueOf(criaturas.size()) + criaturas.get(0).getClass().getSimpleName(),JLabel.CENTER);
+            JLabel r = new JLabel("Custodiado por: " + String.valueOf(criaturas.size()) + " " +criaturas.get(0).getClass().getSimpleName(),JLabel.CENTER);
             aux.add(r);
         }       
         return aux;
@@ -39,7 +39,7 @@ public class Objeto {
     public boolean Reclamable(){
         return reclamable;
     }
-    public void Encontrado(Personaje heroe){
+    public void Reclamado(Personaje heroe){
         this.heroe = heroe;
         heroe.ObjetoEncontrado(this);
     }
@@ -47,3 +47,4 @@ public class Objeto {
         return nombre;
     }
 }
+

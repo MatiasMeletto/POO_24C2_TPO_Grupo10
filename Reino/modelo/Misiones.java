@@ -15,7 +15,11 @@ public class Misiones {
         if(instancia == null){
             instancia = new Misiones(o);
         }else if (o != null){
+            if(instancia.objetos.size() > 3){
+                instancia.objetos.clear();
+            }
             instancia.objetos.add(o);
+
         }
         return instancia;
     }

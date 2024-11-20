@@ -62,6 +62,7 @@ public class VistaMisionesSecundarias extends JPanel {
             botonReclamar.setFont(new Font("Arial", Font.BOLD, 14));
             botonReclamar.setEnabled(o.Reclamable());
             botonReclamar.addActionListener(e -> {
+                o.Reclamado(controlador.getPersonaje());
                 JOptionPane.showMessageDialog(this, "Recompensa reclamada: " + o.getNombre());
                 botonReclamar.setEnabled(false); // Deshabilitar después de reclamar
             });

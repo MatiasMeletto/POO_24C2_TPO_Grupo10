@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,13 +39,17 @@ public class VistaSeleccionClase extends JPanel {
         JButton botonArquero = new JButton("Arquero");
 
         // Estilo de los botones
-        botonMago.setFont(new Font("Arial", Font.BOLD, 50));
-        botonGuerrero.setFont(new Font("Arial", Font.BOLD, 50));
-        botonArquero.setFont(new Font("Arial", Font.BOLD, 50));
+        botonMago.setFont(new Font("Arial", Font.BOLD, 20));
+        botonGuerrero.setFont(new Font("Arial", Font.BOLD, 20));
+        botonArquero.setFont(new Font("Arial", Font.BOLD, 20));
 
         botonMago.setBackground(new Color(173, 216, 230)); // Fondo azul claro
         botonGuerrero.setBackground(new Color(255, 204, 102)); // Fondo dorado
         botonArquero.setBackground(new Color(144, 238, 144)); // Fondo verde claro
+
+        botonMago.setIcon(new ImageIcon("C:/re/mago.jpeg"));
+        botonGuerrero.setIcon(new ImageIcon("C:/re/gue.jpeg"));
+        botonArquero.setIcon(new ImageIcon("C:/re/arq.jpeg"));
 
         botonMago.setForeground(Color.BLACK);
         botonGuerrero.setForeground(Color.BLACK);
@@ -89,10 +94,10 @@ public class VistaSeleccionClase extends JPanel {
         gbc.gridy = 0;
         panelBotones.add(botonMago, gbc);
 
-        gbc.gridy = 1;
+        gbc.gridx = 1;
         panelBotones.add(botonGuerrero, gbc);
 
-        gbc.gridy = 2;
+        gbc.gridx = 2;
         panelBotones.add(botonArquero, gbc);
 
         // Añadimos el panel de botones a la vista

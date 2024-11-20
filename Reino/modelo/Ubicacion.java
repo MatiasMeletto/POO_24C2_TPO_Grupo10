@@ -63,7 +63,8 @@ public class Ubicacion {
             this.objeto = new Objeto("Espada de fuego", "Aumenta el nivel de ataque del heroe en 20%", this, criaturas);
             this.esNeutral = false;
             this.eventoEspecial = (() -> {
-                JOptionPane.showMessageDialog(null, "¡Has encontrado la Espada de fuego!");
+            JOptionPane.showMessageDialog(null, "¡Has matado al dragon del norte!  \n" + //
+                                    "Ya puedes reclamar la Espada de fuego");
             });
         } else if (nombre.contains("Pantano Oscuro")) {
             for (int i = 0; i < 5; i++) {
@@ -72,6 +73,10 @@ public class Ubicacion {
             }
             this.objeto = new Objeto("Arco de luz", "Aumenta el nivel de ataque del heroe en 25%", this, criaturas);
             this.esNeutral = false;
+            this.eventoEspecial = (() -> {
+            JOptionPane.showMessageDialog(null, "¡Has vencido a los espectros del pantano!  \n" + //
+                                    "Ya puedes reclamar el Arco de Luz");
+            });
         } else if (nombre.contains("Aldea de los Sirith")) {
             for (int i = 0; i < 3; i++) {
                 Criatura troll = new Troll();
@@ -79,10 +84,18 @@ public class Ubicacion {
             }
             this.objeto = new Objeto("Escudo de titanio", "Aumenta la defensa en 30 puntos", this, criaturas);
             this.esNeutral = false;
+            this.eventoEspecial = (() -> {
+            JOptionPane.showMessageDialog(null, "¡Has limpiado la aldea de trolls!  \n" + //
+                                    "Ya puedes reclamar el Escudo de titanio");
+            });
         } else if (nombre.contains("Bosque de los Susurros")) {
             // Evento especial sin criaturas
             this.objeto = new Objeto("Amuleto de proteccion", "Aumenta el nivel de defensa del heroe en 15%", this, criaturas);
             this.esNeutral = true; // Neutral porque solo hay un evento
+            this.eventoEspecial = (() -> {
+                JOptionPane.showMessageDialog(null, "¡Has encontrado el amuleto perdido! \n" + //
+                                        "Decides quedartelo, reclamalo para equiparlo");
+                });
         }
         if (this.objeto != null){
             Misiones.getInstancia(objeto);
@@ -104,7 +117,7 @@ public class Ubicacion {
     public void iniciarEvento(Personaje heroe){ //recordar agregar esto a Vista combate --------------------------------------------------------------------
         if (eventoEspecial != null) {
             eventoEspecial.run(); // Ejecutar el evento especial si está configurado.
-            this.objeto.Encontrado(heroe);
+            this.objeto.Encontrado();
         }
     }
 
