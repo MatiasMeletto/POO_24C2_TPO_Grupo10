@@ -2,8 +2,13 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javax.swing.JOptionPane;
 
 import controlador.ControladorJuego;
+import vista.VistaCombate;
 
 
 public class Mapa {
@@ -32,20 +37,20 @@ public class Mapa {
         Ubicacion cavernaOscura = new Ubicacion("Caverna Oscura (Hoguera)", true, controlador);
         Ubicacion puenteAntiguo = new Ubicacion("Puente Antiguo", false, controlador);
         Ubicacion llanuraRocosa = new Ubicacion("Llanura Rocosa", false, controlador);
-        Ubicacion montanaHelada = new Ubicacion("Montaña Helada", false, controlador);
+        Ubicacion montanaHelada = new Ubicacion("Montaña Helada", true, controlador);
         Ubicacion pantanoNiebla = new Ubicacion("Pantano de la Niebla", false, controlador);
         Ubicacion puebloAbandonado = new Ubicacion("Pueblo Abandonado", false, controlador);
         Ubicacion torreVigilancia = new Ubicacion("Torre de Vigilancia (Hoguera)", true, controlador);
-        Ubicacion bosqueSombrio = new Ubicacion("Bosque Sombrío", false, controlador);
+        Ubicacion bosqueSusurros = new Ubicacion("Bosque de los Susurros", true, controlador);
         Ubicacion ruinasAntiguas = new Ubicacion("Ruinas Antiguas", false, controlador);
         Ubicacion campoBatalla = new Ubicacion("Campo de Batalla", false, controlador);
         Ubicacion valleEcos = new Ubicacion("Valle de los Ecos", false, controlador);
         Ubicacion altarOscuro = new Ubicacion("Altar Oscuro", false, controlador);
         Ubicacion fosoProfundo = new Ubicacion("Foso Profundo", false, controlador);
-        Ubicacion cuevaTesoros = new Ubicacion("Cueva de los Tesoros", false, controlador);
+        Ubicacion pantanoOscuro = new Ubicacion("Pantano Oscuro", true, controlador);
         Ubicacion tronoRey = new Ubicacion("Trono del Rey Olvidado (Hoguera)", true, controlador);
         Ubicacion bosqueProfundo = new Ubicacion("Bosque Profundo", false, controlador);
-        Ubicacion altarSagrado = new Ubicacion("Altar Sagrado", false, controlador);
+        Ubicacion aldeaSirith = new Ubicacion("Aldea de los Sirith", true, controlador);
         Ubicacion colinaBrumosa = new Ubicacion("Colina Brumosa", false, controlador);
         Ubicacion desiertoSombrio = new Ubicacion("Desierto Sombrío", false, controlador);
         Ubicacion cascadaSilenciosa = new Ubicacion("Cascada Silenciosa", false, controlador);
@@ -73,27 +78,27 @@ public class Mapa {
 
         puebloAbandonado.agregarCamino(torreVigilancia);    //Lineal
 
-        torreVigilancia.agregarCamino(bosqueSombrio);  // Bifurcación izquierda
+        torreVigilancia.agregarCamino(bosqueSusurros);  // Bifurcación izquierda
         torreVigilancia.agregarCamino(ruinasAntiguas); // Bifurcación derecha
 
-        bosqueSombrio.agregarCamino(campoBatalla);      //Union
+        bosqueSusurros.agregarCamino(campoBatalla);      //Union
         ruinasAntiguas.agregarCamino(campoBatalla);     //Union
 
         campoBatalla.agregarCamino(valleEcos);  // Bifuracion Izquierda
         campoBatalla.agregarCamino(altarOscuro);  // Bifurcacion Derecha
 
         valleEcos.agregarCamino(fosoProfundo);  // Lineal
-        altarOscuro.agregarCamino(cuevaTesoros); // Lineal
+        altarOscuro.agregarCamino(pantanoOscuro); // Lineal
 
         fosoProfundo.agregarCamino(tronoRey); //Union
-        cuevaTesoros.agregarCamino(tronoRey); //Union
+        pantanoOscuro.agregarCamino(tronoRey); //Union
 
         tronoRey.agregarCamino(bosqueProfundo); //Lineal
 
-        bosqueProfundo.agregarCamino(altarSagrado); //Lineal
+        bosqueProfundo.agregarCamino(aldeaSirith); //Lineal
 
-        altarSagrado.agregarCamino(colinaBrumosa); //Bifurcacion izquierda
-        altarSagrado.agregarCamino(desiertoSombrio); //Bifurcacion derecha
+        aldeaSirith.agregarCamino(colinaBrumosa); //Bifurcacion izquierda
+        aldeaSirith.agregarCamino(desiertoSombrio); //Bifurcacion derecha
 
         colinaBrumosa.agregarCamino(cascadaSilenciosa); //Union
         desiertoSombrio.agregarCamino(cascadaSilenciosa); //Union
@@ -113,26 +118,50 @@ public class Mapa {
         ubicaciones.add(pantanoNiebla);
         ubicaciones.add(puebloAbandonado);
         ubicaciones.add(torreVigilancia);
-        ubicaciones.add(bosqueSombrio);
+        ubicaciones.add(bosqueSusurros);
         ubicaciones.add(ruinasAntiguas);
         ubicaciones.add(campoBatalla);
         ubicaciones.add(valleEcos);
         ubicaciones.add(altarOscuro);
         ubicaciones.add(fosoProfundo);
-        ubicaciones.add(cuevaTesoros);
+        ubicaciones.add(pantanoOscuro);
         ubicaciones.add(tronoRey);
         ubicaciones.add(bosqueProfundo);
-        ubicaciones.add(altarSagrado);
+        ubicaciones.add(aldeaSirith);
         ubicaciones.add(colinaBrumosa);
         ubicaciones.add(desiertoSombrio);
         ubicaciones.add(cascadaSilenciosa);
         ubicaciones.add(torreEspectral);
+        
+        // Cambiar la lógica de estas ubicaciones para que actúen como "eventos especiales":
+        montanaHelada.setEventoEspecial(() -> {
+            Criatura dragon = new Dragon();
+            VistaCombate.mostrar(controlador, heroe, List.of(dragon));
+        });
+
+        bosqueSusurros.setEventoEspecial(() -> {
+            JOptionPane.showMessageDialog(null, "¡Has encontrado el Amuleto Perdido!");
+        });
+
+        pantanoOscuro.setEventoEspecial(() -> {
+            List<Criatura> espectros = IntStream.range(0, 5)
+                .mapToObj(i -> new Espectro())
+                .collect(Collectors.toList());
+            VistaCombate.mostrar(controlador, heroe, espectros);
+        });
+
+        aldeaSirith.setEventoEspecial(() -> {
+            List<Criatura> trolls = IntStream.range(0, 3)
+                .mapToObj(i -> new Troll())
+                .collect(Collectors.toList());
+            VistaCombate.mostrar(controlador, heroe, trolls);
+        });
 
         // Establecer la primera ubicación como la actual
         ubicacionActual = entradaReino;
         ubicacionFinal = torreEspectral;
     }
-
+    
     public List<Ubicacion> getUbicaciones() {
         return ubicaciones;
     }

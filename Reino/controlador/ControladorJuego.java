@@ -26,15 +26,18 @@ public class ControladorJuego {
             default:
                 throw new IllegalArgumentException("Clase de personaje no válida: " + claseSeleccionada);
         }
+        VistaHub.mostrar(this);
         iniciarMapa();
+    }
+
+    public Mapa getMapa() {
+        return mapa;
     }
 
     public void iniciarMapa() {
         mapa = new Mapa(personaje, this); // Se pasa el controlador al mapa
-        VistaMapa.mostrar(this, mapa);    // Se muestra una nueva instancia de VistaMapa
     }
-    
-    
+      
     public Personaje getPersonaje() {
         return personaje;
     }

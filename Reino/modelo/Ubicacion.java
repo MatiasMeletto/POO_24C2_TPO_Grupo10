@@ -11,6 +11,8 @@ public class Ubicacion {
     private List<Criatura> criaturas;
     private boolean esNeutral;
     private List<Ubicacion> caminosPosibles;
+    private Runnable eventoEspecial;
+    
     public Ubicacion(String nombre, boolean esNeutral, ControladorJuego controlador) {
         this.nombre = nombre;
         this.esNeutral = esNeutral;
@@ -45,15 +47,19 @@ public class Ubicacion {
                 }
             }
         }
-        if (nombre.contains("Torre Espectral")){
-            for (int i = 0; i < 4; i++) {
-                Criatura c = new Dragon();
-                this.criaturas.add(c);
-            }
-            this.esNeutral = false;
-        }
+        //if (nombre.contains("Torre Espectral")){
+        //    for (int i = 0; i < 4; i++) {
+        //        Criatura c = new Dragon();
+        //        this.criaturas.add(c);
+        //    }
+        //    this.esNeutral = false;
+        //}
     }
     
+    public void setEventoEspecial(Runnable eventoEspecial) {
+        this.eventoEspecial = eventoEspecial;
+    }
+
     public void agregarCamino(Ubicacion ubicacion) {
         caminosPosibles.add(ubicacion);
     }
@@ -67,10 +73,12 @@ public class Ubicacion {
     }
 
     public void crearCombate(Personaje heroe, ControladorJuego controlador) {
-        if (!esNeutral && controlador != null) { // Verifica que controlador no sea nulo
-            VistaCombate.mostrar(controlador, heroe, criaturas);
-        }else if(esNeutral){
-            heroe.restaurarVida();
+        if (eventoEspecial != null) {
+            eventoEspecial.run(); // Ejecutar el evento especial si está configurado.
+        } else if (!esNeutral && controlador != null) {
+            VistaCombate.mostrar(controlador, heroe, criaturas); // Mostrar combate si no es neutral.
+        } else if (esNeutral) {
+            heroe.restaurarVida(); // Restaurar vida en ubicaciones neutrales.
         }
     }
 }
