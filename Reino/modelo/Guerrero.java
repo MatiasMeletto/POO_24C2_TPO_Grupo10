@@ -1,6 +1,7 @@
 package modelo;
 
 public class Guerrero extends Personaje {
+    private int contadorGolpes;
 
     public Guerrero(String nombre) {
         super(nombre, 1200 , 1200, 50,35);  // Valores de vida, ataque y defensa iniciales para Guerrero
@@ -8,6 +9,7 @@ public class Guerrero extends Personaje {
 
     @Override
     public int recibirDanio(int danio, Criatura c) {
+
         if(danio != 0 && (danio-nivelDefensa) > 0){
             puntosVida -= (danio - nivelDefensa);
             return (int)(danio-nivelDefensa);
@@ -17,6 +19,12 @@ public class Guerrero extends Personaje {
 
     @Override
     public int hacerDanio(Criatura c) {
+        contadorGolpes++;
+        //A partir del tercer golpe, se duplica el ataque
+        if (contadorGolpes >= 3){
+            return nivelAtaque * 2;
+        }
+
         if (c instanceof Troll){
             return 9999;
         }
@@ -26,5 +34,9 @@ public class Guerrero extends Personaje {
     @Override
     public void restaurarVida() {
         puntosVida += (int)(maxVida * 0.20);
+    }
+
+    public void iniciarNuevoCombate(){
+        contadorGolpes = 0;
     }
 }

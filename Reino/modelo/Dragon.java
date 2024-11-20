@@ -8,7 +8,7 @@ public class Dragon extends Criatura {
 
     @Override
     public int recibirDanio(int danio, Personaje p) {
-        if(danio != 0 || (danio-(nivelDefensa*1.15)) > 0 || (danio-nivelDefensa) > 0){
+        if(danio != 0 && (danio-(nivelDefensa*1.15)) > 0 && (danio-nivelDefensa) > 0){
             puntosVida = (puntosVida - (danio - nivelDefensa));
             return (int)(danio-nivelDefensa);
         }

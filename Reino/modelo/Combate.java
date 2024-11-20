@@ -12,6 +12,10 @@ public class Combate {
         this.heroe = heroe;
         this.criaturas = criaturas;
         this.turnoHeroe = emboscada;
+
+        if (heroe instanceof Guerrero) {
+            ((Guerrero) heroe).iniciarNuevoCombate();
+        }
     }
 
     public String iniciarCombate() {
