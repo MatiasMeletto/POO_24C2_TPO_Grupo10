@@ -42,7 +42,7 @@ public class VistaHub extends JPanel {
 
         // Crear y configurar botones
         JButton botonMapa = crearBoton("Mapa","");
-        botonMapa.addActionListener(e -> controlador.cambiarVista(new VistaMapa(controlador, controlador.getMapa())));
+        botonMapa.addActionListener(e -> controlador.mostrarMapa());
         panelBotones.add(botonMapa);
 
         JButton botonMisiones = crearBoton("Misiones Secundarias","");

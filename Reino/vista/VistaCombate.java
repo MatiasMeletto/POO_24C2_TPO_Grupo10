@@ -89,7 +89,7 @@ public class VistaCombate extends JPanel {
 
                 if (controlador != null) {
                     controlador.mostrarMapa(); // Vuelve al mapa
-                    controlador.actualizarMapaVista();
+                    //controlador.actualizarMapaVista();
                 }
                 
             }

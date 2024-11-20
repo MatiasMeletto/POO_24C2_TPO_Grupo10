@@ -20,6 +20,7 @@ public class ControladorJuego {
     private Personaje personaje;
     private Mapa mapa;
     private VistaMapa vistaMapa;
+    private VistaHub vistaHub;
 
     private ControladorJuego() {
         ventanaPrincipal = new JFrame("Reino de Uadengard");
@@ -82,6 +83,7 @@ public class ControladorJuego {
         }
         mapa = new Mapa(personaje, this);
         vistaMapa = new VistaMapa(this, mapa); // Inicializa VistaMapa
+        vistaHub = new VistaHub(this); // Inicializa VistaHub
         cambiarVista(new VistaHub(this)); // Muestra el hub
     }
 
