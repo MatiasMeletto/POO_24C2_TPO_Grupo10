@@ -106,6 +106,25 @@ public abstract class Personaje {
         }
     }
 
+    public void aplicarMejora(Objeto o){    
+        if (o.getNombre().contains("Espada de fuego")) {
+            // Incrementar el ataque del héroe en 20%
+            nivelAtaque = (int) (nivelAtaque * 1.2);
+        } 
+        else if (o.getNombre().contains("Amuleto de proteccion")) {
+            // Incrementar la defensa del héroe en 15%
+            nivelDefensa = (int) (nivelDefensa * 1.15);
+        } 
+        else if (o.getNombre().contains("Arco de Luz")) {
+            // Incrementar el ataque del héroe en 25%
+            nivelAtaque = (int) (nivelAtaque * 1.25);
+        } 
+        else if (o.getNombre().contains("Escudo de Titanio")) {
+            // Incrementar la defensa en 30 puntos
+            nivelDefensa += 30;
+        }
+    }
+
     public List<Objeto> obtenerObjetos(){
         return objetos;
     }

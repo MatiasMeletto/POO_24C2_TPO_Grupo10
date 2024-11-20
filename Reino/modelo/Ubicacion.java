@@ -89,9 +89,10 @@ public class Ubicacion {
                                     "Ya puedes reclamar el Escudo de titanio");
             });
         } else if (nombre.contains("Bosque de los Susurros")) {
-            // Evento especial sin criaturas
+            Criatura espectro = new Espectro();
+            this.criaturas.add(espectro);
             this.objeto = new Objeto("Amuleto de proteccion", "Aumenta el nivel de defensa del heroe en 15%", this, criaturas);
-            this.esNeutral = true; // Neutral porque solo hay un evento
+            this.esNeutral = false; // Neutral porque solo hay un evento
             this.eventoEspecial = (() -> {
                 JOptionPane.showMessageDialog(null, "¡Has encontrado el amuleto perdido! \n" + //
                                         "Decides quedartelo, reclamalo para equiparlo");

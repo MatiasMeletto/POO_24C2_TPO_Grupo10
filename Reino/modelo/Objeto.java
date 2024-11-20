@@ -44,6 +44,7 @@ public class Objeto {
     public void Reclamado(Personaje heroe){
         this.heroe = heroe;
         heroe.ObjetoEncontrado(this);
+        heroe.aplicarMejora(this);
     }
     public String getNombre(){
         return nombre;
