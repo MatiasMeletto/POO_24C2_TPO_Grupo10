@@ -51,13 +51,14 @@ public class VistaMapa extends JFrame {
         if (primerBoton != null) {
             primerBoton.setEnabled(true); // Habilitar el primer botón
         }
-        // Dentro del constructor de VistaMapa
+        // Vuelvo al hub
         JButton botonVolverHub = new JButton("Volver al Hub");
         botonVolverHub.addActionListener(e -> {
             this.dispose(); // Cierra la ventana actual del mapa.
             VistaHub.mostrar(controlador); // Muestra el Hub.
         });
         add(botonVolverHub, BorderLayout.SOUTH); // Coloca el botón en la parte inferior.
+        
         revalidate();
         repaint();
 
@@ -107,8 +108,12 @@ public class VistaMapa extends JFrame {
         agregarBotonUbicacion(mapa.getUbicaciones().get(23), 17, 2); // Desierto Sombrío (bifurcacion derecha)
         agregarBotonUbicacion(mapa.getUbicaciones().get(24), 18, 1); // Cascada Silenciosa
         agregarBotonUbicacion(mapa.getUbicaciones().get(25), 19, 1); // Torre Espectral
-    }
 
+        // Validar y repintar el panel para asegurar que se actualice visualmente
+        panelMapa.revalidate();
+        panelMapa.repaint();
+    }
+    
     private void agregarBotonUbicacion(Ubicacion ubicacion, int fila, int columna) {
         JButton botonUbicacion = new JButton(ubicacion.getNombre());
         botonUbicacion.setEnabled(false); // Deshabilitado hasta que sea alcanzable

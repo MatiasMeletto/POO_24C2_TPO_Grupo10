@@ -2,6 +2,8 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import java.lang.Runnable;
 
 import controlador.ControladorJuego;
 import vista.VistaCombate;
@@ -47,13 +49,32 @@ public class Ubicacion {
                 }
             }
         }
-        //if (nombre.contains("Torre Espectral")){
-        //    for (int i = 0; i < 4; i++) {
-        //        Criatura c = new Dragon();
-        //        this.criaturas.add(c);
-        //    }
-        //    this.esNeutral = false;
-        //}
+        if (nombre.contains("Torre Espectral")){
+            for (int i = 0; i < 4; i++) {
+                Criatura c = new Dragon();
+                this.criaturas.add(c);
+            }
+            this.esNeutral = false;
+        }else if (nombre.contains("Montaña Helada")) {
+            Criatura dragon = new Dragon();
+            this.criaturas.add(dragon);
+            this.esNeutral = false;
+        } else if (nombre.contains("Pantano Oscuro")) {
+            for (int i = 0; i < 5; i++) {
+                Criatura espectro = new Espectro();
+                this.criaturas.add(espectro);
+            }
+            this.esNeutral = false;
+        } else if (nombre.contains("Aldea de los Sirith")) {
+            for (int i = 0; i < 3; i++) {
+                Criatura troll = new Troll();
+                this.criaturas.add(troll);
+            }
+            this.esNeutral = false;
+        } else if (nombre.contains("Bosque de los Susurros")) {
+            // Evento especial sin criaturas
+            this.esNeutral = true; // Neutral porque solo hay un evento
+        }
     }
     
     public void setEventoEspecial(Runnable eventoEspecial) {
@@ -72,13 +93,17 @@ public class Ubicacion {
         return nombre;
     }
 
+    private boolean combateRealizado = false; // Variable para controlar si el combate ya se realizó.
+
     public void crearCombate(Personaje heroe, ControladorJuego controlador) {
         if (eventoEspecial != null) {
             eventoEspecial.run(); // Ejecutar el evento especial si está configurado.
-        } else if (!esNeutral && controlador != null) {
+        } else if (!esNeutral && !combateRealizado && controlador != null) {
             VistaCombate.mostrar(controlador, heroe, criaturas); // Mostrar combate si no es neutral.
+            combateRealizado = true; // Marcar el combate como realizado.
         } else if (esNeutral) {
             heroe.restaurarVida(); // Restaurar vida en ubicaciones neutrales.
         }
     }
+    
 }

@@ -42,6 +42,13 @@ public class ControladorJuego {
         return personaje;
     }
 
+    public void mostrarMapa() {
+        if (mapa == null) {
+            mapa = new Mapa(personaje, this); // Crea el mapa si no existe.
+        }
+        VistaMapa.mostrar(this, mapa); // Muestra la vista del mapa.
+    }
+
     public void reiniciarJuego() {
         // Eliminar referencias estáticas de VistaMapa
         VistaMapa.getInstancia(null, null).derrotado(); // Llama a derrotado() para liberar recursos

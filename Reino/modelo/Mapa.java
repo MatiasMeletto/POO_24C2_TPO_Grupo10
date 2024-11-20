@@ -133,30 +133,6 @@ public class Mapa {
         ubicaciones.add(cascadaSilenciosa);
         ubicaciones.add(torreEspectral);
         
-        // Cambiar la lógica de estas ubicaciones para que actúen como "eventos especiales":
-        montanaHelada.setEventoEspecial(() -> {
-            Criatura dragon = new Dragon();
-            VistaCombate.mostrar(controlador, heroe, List.of(dragon));
-        });
-
-        bosqueSusurros.setEventoEspecial(() -> {
-            JOptionPane.showMessageDialog(null, "¡Has encontrado el Amuleto Perdido!");
-        });
-
-        pantanoOscuro.setEventoEspecial(() -> {
-            List<Criatura> espectros = IntStream.range(0, 5)
-                .mapToObj(i -> new Espectro())
-                .collect(Collectors.toList());
-            VistaCombate.mostrar(controlador, heroe, espectros);
-        });
-
-        aldeaSirith.setEventoEspecial(() -> {
-            List<Criatura> trolls = IntStream.range(0, 3)
-                .mapToObj(i -> new Troll())
-                .collect(Collectors.toList());
-            VistaCombate.mostrar(controlador, heroe, trolls);
-        });
-
         // Establecer la primera ubicación como la actual
         ubicacionActual = entradaReino;
         ubicacionFinal = torreEspectral;

@@ -56,7 +56,7 @@ public class Combate {
     private String ataqueCriatura(Criatura criatura) {
         int danio = criatura.hacerDanio(heroe);
         int d = heroe.recibirDanio(danio, criatura);
-        return "<span style='color:#FF9800;'>" + criatura.getClass().getSimpleName() + "</span> ataca a <span style='color:#2196F3; font-weight:bold;'>" + heroe.getNombre() + "</span> causando <span style='font-weight:bold; color:#4CAF50;'>" + d + "</span> puntos de daño.";
+        return "<span style='color:#FF9800;'>" + criatura.getClass().getSimpleName() + "</span> ataca a <span style='color:#2196F3; font-weight:bold;'>" + heroe.getNombre() + "</span> causando <span style='font-weight:bold; color:#FF5722;'>" + d + "</span> puntos de daño.";
     }
 
     public Boolean getVictoria() {
