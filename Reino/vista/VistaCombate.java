@@ -17,6 +17,7 @@ import modelo.Criatura;
 import modelo.Guerrero;
 import modelo.Mago;
 import modelo.Personaje;
+import modelo.Ubicacion;
 
 public class VistaCombate extends JPanel {
 
@@ -25,11 +26,13 @@ public class VistaCombate extends JPanel {
     private ControladorJuego controlador;
     private Personaje heroe;
     private boolean combateFinal;
+    private Ubicacion ubicacion;
 
-    public VistaCombate(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
+    public VistaCombate(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas, Ubicacion u) {
         this.heroe = heroe;
         this.controlador = controlador;
         this.victoria = false;
+        this.ubicacion = u;
 
         if (criaturas.size() > 3) {
             combateFinal = true; // Determina si es el combate final
@@ -84,6 +87,7 @@ public class VistaCombate extends JPanel {
                 if (controlador != null) {
                     controlador.mostrarMapa(); // Vuelve al mapa
                 }
+                ubicacion.iniciarEvento(heroe);
             }
             if (combateFinal) {
                 String videoPath = "";
@@ -110,7 +114,7 @@ public class VistaCombate extends JPanel {
     }
 
     // Método para mostrar esta vista desde el controlador
-    public static void mostrar(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas) {
-        controlador.cambiarVista(new VistaCombate(controlador, heroe, criaturas));
+    public static void mostrar(ControladorJuego controlador, Personaje heroe, List<Criatura> criaturas,Ubicacion ubicacion) {
+        controlador.cambiarVista(new VistaCombate(controlador, heroe, criaturas,ubicacion));
     }
 }

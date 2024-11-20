@@ -51,6 +51,7 @@ public abstract class Personaje {
     public abstract int recibirDanio(int danio, Criatura c) ;
 
     public abstract int hacerDanio(Criatura c) ;
+
     public boolean sigueVivo() {
         return puntosVida > 0;
     }
@@ -103,6 +104,10 @@ public abstract class Personaje {
                     JOptionPane.showMessageDialog(null, "No seleccionaste ninguna mejora.");
             }
         }
+    }
+
+    public List<Objeto> obtenerObjetos(){
+        return objetos;
     }
     // Método abstracto para restaurar la vida, cada clase puede definir su propio comportamiento
     public abstract void restaurarVida();

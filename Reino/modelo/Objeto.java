@@ -36,8 +36,14 @@ public class Objeto {
     public void Encontrado(){
         this.reclamable = true;
     }
+    public boolean Reclamable(){
+        return reclamable;
+    }
     public void Encontrado(Personaje heroe){
         this.heroe = heroe;
         heroe.ObjetoEncontrado(this);
+    }
+    public String getNombre(){
+        return nombre;
     }
 }

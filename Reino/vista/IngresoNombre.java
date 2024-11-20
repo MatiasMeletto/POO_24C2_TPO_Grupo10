@@ -7,7 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,13 +19,9 @@ import controlador.ControladorJuego;
 
 public class IngresoNombre extends JPanel {
     private JTextField campoNombre;
-    private Image imagenFondo = new ImageIcon("C:/resources/imagenes/menuPrincipal.jpg").getImage();
+    private Image imagenFondo = new ImageIcon("C:/re/o.jpg").getImage();
 
     public IngresoNombre(ControladorJuego controlador) {
-        File archivo = new File("C:/resources/imagenes/menuPrincipal.jpg");
-        if (!archivo.exists()) {
-            System.err.println("El archivo de imagen no se encuentra en la ruta especificada.");
-        }
         // Configuración del layout principal
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

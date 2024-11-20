@@ -1,15 +1,20 @@
 package vista;
 
-import controlador.ControladorJuego;
+import java.awt.GridLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import controlador.ControladorJuego;
+import modelo.Personaje;
 
 public class VistaHub extends JPanel {
+    private Personaje heroe;
     private ControladorJuego controlador;
 
     public VistaHub(ControladorJuego controlador) {
         this.controlador = controlador;
+        this.heroe = controlador.getPersonaje();
 
         // Configuración del panel
         setLayout(new GridLayout(2, 2, 10, 10)); // Disposición de los botones en una cuadrícula
@@ -22,8 +27,7 @@ public class VistaHub extends JPanel {
         // Botón para misiones secundarias
         JButton botonMisiones = new JButton("Misiones Secundarias");
         botonMisiones.addActionListener(e -> {
-            // Mostrar la vista de misiones (por implementar)
-            JOptionPane.showMessageDialog(this, "Pantalla de misiones no implementada aún.");
+            controlador.cambiarVista(new VistaMisionesSecundarias(controlador, heroe.obtenerObjetos()));
         });
         add(botonMisiones);
 
@@ -31,16 +35,14 @@ public class VistaHub extends JPanel {
         JButton botonEstado = new JButton("Estado del Personaje");
         botonEstado.addActionListener(e -> {
             // Mostrar la vista de estado del personaje
-            JPanel panelEstado = new VistaEstadoPersonaje(controlador).getPanelEstado();
-            controlador.cambiarVista(panelEstado); // Cambia la vista al estado del personaje
+            controlador.cambiarVista(new VistaEstadoPersonaje(controlador));
         });
         add(botonEstado);
 
         // Botón para el inventario
         JButton botonInventario = new JButton("Inventario");
         botonInventario.addActionListener(e -> {
-            // Mostrar la vista de inventario (por implementar)
-            JOptionPane.showMessageDialog(this, "Inventario no implementado aún.");
+            controlador.cambiarVista(new VistaInventario(controlador, heroe.obtenerObjetos()));
         });
         add(botonInventario);
     }

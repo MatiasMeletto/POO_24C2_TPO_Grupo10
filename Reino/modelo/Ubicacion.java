@@ -110,7 +110,7 @@ public class Ubicacion {
     public void crearCombate(Personaje heroe, ControladorJuego controlador) {
         if (!esNeutral && !combateRealizado && controlador != null) {
             combateRealizado = true;
-            VistaCombate.mostrar(controlador, heroe, criaturas); 
+            VistaCombate.mostrar(controlador, heroe, criaturas,this); 
         } else if (esNeutral) {
             heroe.restaurarVida(); // Restaurar vida en ubicaciones neutrales.
         }
