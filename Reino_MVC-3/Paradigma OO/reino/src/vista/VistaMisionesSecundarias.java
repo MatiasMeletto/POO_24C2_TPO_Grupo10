@@ -55,7 +55,7 @@ public class VistaMisionesSecundarias extends JPanel {
                 panelDescripcion.setOpaque(false); 
 
                 JLabel nombre = new JLabel(objeto.getNombre(), JLabel.CENTER);
-                JLabel objetivo = new JLabel("Objetivo: " + objeto.getDescripcion(), JLabel.CENTER);
+                JLabel objetivo = new JLabel("Objetivo: " + objeto.getUbicacion(), JLabel.CENTER);
                 JLabel recompensa = new JLabel("Recompensa: " + objeto.getNombre(), JLabel.CENTER);
                 panelDescripcion.add(nombre);
                 panelDescripcion.add(objetivo);

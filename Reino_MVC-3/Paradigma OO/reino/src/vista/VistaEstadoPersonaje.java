@@ -21,7 +21,7 @@ public class VistaEstadoPersonaje extends JPanel {
         this.personajeView = personajeView;
 
         try {
-            backgroundImage = ImageIO.read(new File("Paradigma OO\\reino\\src\\resources\\vistaestado.png"));
+            backgroundImage = ImageIO.read(new File("Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\vistaestado.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

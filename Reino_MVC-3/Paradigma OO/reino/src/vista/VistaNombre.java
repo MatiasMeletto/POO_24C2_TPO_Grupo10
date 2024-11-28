@@ -9,7 +9,7 @@ public class VistaNombre extends JPanel {
     private ControladorJuego controlador;
     private JTextField campoNombre;
     private Image imagenFondo = new ImageIcon(
-            "Paradigma OO\\reino\\src\\resources\\menu.png").getImage();
+            "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\menu.png").getImage();
 
     public VistaNombre(ControladorJuego controlador) {
         this.controlador = controlador;

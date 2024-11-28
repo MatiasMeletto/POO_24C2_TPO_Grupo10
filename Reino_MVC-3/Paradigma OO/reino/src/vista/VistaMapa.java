@@ -33,7 +33,7 @@ public class VistaMapa extends JPanel {
 
         // Cargar la imagen de fondo
         try {
-            backgroundImage = ImageIO.read(new File("Paradigma OO\\reino\\src\\resources\\vistamapa.png")); 
+            backgroundImage = ImageIO.read(new File("Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\vistamapa.png")); 
         } catch (IOException e) {
             e.printStackTrace();
         }

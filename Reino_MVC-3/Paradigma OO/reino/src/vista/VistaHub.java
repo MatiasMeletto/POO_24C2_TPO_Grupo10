@@ -21,7 +21,7 @@ public class VistaHub extends JPanel {
 
         // Cargar la imagen de fondo
         try {
-            backgroundImage = ImageIO.read(new File("Paradigma OO\\reino\\src\\resources\\hub.png"));
+            backgroundImage = ImageIO.read(new File("Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\hub.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,10 +72,10 @@ public class VistaHub extends JPanel {
         gbc.weighty = 1.0;
 
         // Crear y configurar botones
-        JButton botonMapa = crearBoton("Mapa","Paradigma OO\\reino\\src\\resources\\mapa.png");
-        JButton botonMisiones = crearBoton("Misiones", "Paradigma OO\\reino\\src\\resources\\misiones.png");
-        JButton botonEstadoPersonaje = crearBoton("Estado Personaje", "Paradigma OO\\reino\\src\\resources\\estado.png");
-        JButton botonInventario = crearBoton("Inventario", "Paradigma OO\\reino\\src\\resources\\inventario.png");
+        JButton botonMapa = crearBoton("Mapa","Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\mapa.png");
+        JButton botonMisiones = crearBoton("Misiones", "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\misiones.png");
+        JButton botonEstadoPersonaje = crearBoton("Estado Personaje", "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\estado.png");
+        JButton botonInventario = crearBoton("Inventario", "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\inventario.png");
 
         // Añadir botones al panel con GridBagConstraints
         gbc.gridx = 0;

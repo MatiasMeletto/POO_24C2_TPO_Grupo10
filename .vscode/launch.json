@@ -8,6 +8,20 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
+            "mainClass": "Main",
+            "projectName": "POO_24C2_TPO_Grupo10-1_a416757c"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.Main",
+            "projectName": "POO_24C2_TPO_Grupo10-1_a416757c"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
             "mainClass": "main.Main",
             "projectName": "POO_24C2_TPO_Grupo10-8_bd1e6bb3"
         },

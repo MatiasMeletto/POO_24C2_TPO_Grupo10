@@ -19,7 +19,7 @@ public class VistaSeleccionClase extends JPanel {
 
         // Cargar la imagen de fondo
         try {
-            imagenFondo = ImageIO.read(new File("Paradigma OO\\reino\\src\\resources\\clase.png"));
+            imagenFondo = ImageIO.read(new File("Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\clase.png"));
         } catch (IOException e) {
             System.out.println("Error al cargar la imagen de fondo: " + e.getMessage());
         }
@@ -56,13 +56,13 @@ public class VistaSeleccionClase extends JPanel {
         // Escalar y establecer iconos
         Dimension iconSize = new Dimension(500, 600); 
         botonMago.setIcon(escalarIcono(
-                "Paradigma OO\\reino\\src\\resources\\mago.png",
+                "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\mago.png",
                 iconSize));
         botonGuerrero.setIcon(escalarIcono(
-                "Paradigma OO\\reino\\src\\resources\\guerrero.png",
+                "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\guerrero.png",
                 iconSize));
         botonArquero.setIcon(escalarIcono(
-                "Paradigma OO\\reino\\src\\resources\\arquero.png",
+                "Reino_MVC-3\\Paradigma OO\\reino\\src\\resources\\arquero.png",
                 iconSize));
 
         botonMago.setForeground(Color.BLACK);
